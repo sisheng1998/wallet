@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import ThemeProvider from "@/components/theme-provider";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -64,7 +65,14 @@ const RootLayout = ({
         fontSans.variable,
       )}
     >
-      {children}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
     </body>
   </html>
 );
