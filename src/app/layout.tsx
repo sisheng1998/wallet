@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import ThemeProvider from "@/components/theme-provider";
 import "@/styles/globals.css";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | Wallet",
