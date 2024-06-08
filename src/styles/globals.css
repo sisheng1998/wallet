@@ -70,7 +70,22 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+  ::-webkit-scrollbar {
+    @apply h-3 w-3;
+  }
+  ::-webkit-scrollbar-track {
+    @apply border border-solid border-border bg-foreground/5;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-lg border-[3px] border-solid border-transparent bg-foreground/20 bg-clip-content transition hover:bg-foreground/30 active:bg-foreground/40;
   }
 }
