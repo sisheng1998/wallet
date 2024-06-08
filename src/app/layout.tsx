@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
+import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -9,12 +11,17 @@ export const metadata: Metadata = {
   description: "Finance Made Simple",
 };
 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="en">
+  <html lang="en" suppressHydrationWarning>
     <head>
       <link
         rel="apple-touch-icon"
@@ -51,7 +58,14 @@ const RootLayout = ({
         content="black"
       />
     </head>
-    <body>{children}</body>
+    <body
+      className={cn(
+        "bg-background min-h-screen font-sans antialiased",
+        fontSans.variable,
+      )}
+    >
+      {children}
+    </body>
   </html>
 );
 
