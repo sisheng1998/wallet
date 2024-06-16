@@ -27,7 +27,7 @@ const getLocalD1DB = () => {
 export default defineConfig({
   dialect: "sqlite",
   schema: "./src/db/schema/index.ts",
-  out: "./migrations",
+  out: "./src/db/migrations",
   ...(process.env.NODE_ENV === "production"
     ? {
         driver: "d1-http",
