@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
-import { cn } from "@/lib/utils";
 import ThemeProvider from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 
 export const runtime = "edge";
@@ -63,7 +63,7 @@ const RootLayout = ({
     </head>
     <body
       className={cn(
-        "min-h-screen overflow-x-hidden font-sans antialiased",
+        "relative flex min-h-screen flex-col overflow-x-hidden overscroll-y-none bg-background font-sans text-foreground antialiased",
         fontSans.variable,
       )}
     >
