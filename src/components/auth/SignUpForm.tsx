@@ -39,7 +39,8 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    const { name, email } = values;
+    console.log(name, email.toLowerCase());
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
