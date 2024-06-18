@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
-import ThemeProvider from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import Providers from "./providers";
 import "@/styles/globals.css";
 
 export const runtime = "edge";
@@ -67,14 +67,7 @@ const RootLayout = ({
         fontSans.variable,
       )}
     >
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        {children}
-      </ThemeProvider>
+      <Providers>{children}</Providers>
     </body>
   </html>
 );
