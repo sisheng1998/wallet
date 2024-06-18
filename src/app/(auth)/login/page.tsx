@@ -10,25 +10,25 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Google from "@/icons/Google";
-import SignInForm from "@/components/auth/SignInForm";
+import LoginForm from "@/components/auth/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Sign In",
+  title: "Login",
 };
 
-const SignIn = () => (
+const Login = () => (
   <>
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
-        <CardTitle>Sign In</CardTitle>
-        <CardDescription>Sign in to access your wallet</CardDescription>
+        <CardTitle>Login</CardTitle>
+        <CardDescription>Login to access your wallet</CardDescription>
       </CardHeader>
 
       <CardContent>
         <Button variant="outline" className="w-full" asChild>
-          <Link href="/sign-in/google">
+          <Link href="/api/oauth/google">
             <Google className="mr-2 h-4 w-4" />
-            Sign In with Google
+            Login with Google
           </Link>
         </Button>
 
@@ -38,7 +38,7 @@ const SignIn = () => (
           <div className="flex-grow border-t border-muted" />
         </div>
 
-        <SignInForm />
+        <LoginForm />
       </CardContent>
     </Card>
 
@@ -53,4 +53,4 @@ const SignIn = () => (
   </>
 );
 
-export default SignIn;
+export default Login;

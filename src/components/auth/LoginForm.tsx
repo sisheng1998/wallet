@@ -26,7 +26,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const SignInForm = () => {
+const LoginForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,7 +35,8 @@ const SignInForm = () => {
   });
 
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    const { email } = values;
+    console.log(email.toLowerCase());
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -74,11 +75,11 @@ const SignInForm = () => {
           {form.formState.isSubmitting && (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Sign In
+          Login
         </Button>
       </form>
     </Form>
   );
 };
 
-export default SignInForm;
+export default LoginForm;

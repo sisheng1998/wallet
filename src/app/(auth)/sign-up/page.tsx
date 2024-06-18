@@ -26,7 +26,7 @@ const SignUp = () => (
 
       <CardContent>
         <Button variant="outline" className="w-full" asChild>
-          <Link href="/sign-up/google">
+          <Link href="/api/oauth/google">
             <Google className="mr-2 h-4 w-4" />
             Sign Up with Google
           </Link>
@@ -47,7 +47,7 @@ const SignUp = () => (
         Already have an account?
       </p>
       <Button variant="link" className="h-auto p-0" asChild>
-        <Link href="/sign-in">Sign In</Link>
+        <Link href="/login">Login</Link>
       </Button>
     </div>
   </>
