@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "@/hooks/useRouter";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../ui/use-toast";
 
 const CallbackError = () => {
   const { toast } = useToast();
