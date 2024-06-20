@@ -23,10 +23,14 @@ declare module "lucia" {
   }
 }
 
-export const getUser = cache(async () => {
+export const validateRequest = cache(async () => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 
-  if (!sessionId) return null;
+  if (!sessionId)
+    return {
+      user: null,
+      session: null,
+    };
 
   const { user, session } = await lucia.validateSession(sessionId);
 
@@ -54,7 +58,10 @@ export const getUser = cache(async () => {
     // Next.js throws error when attempting to set cookies when rendering page
   }
 
-  return user;
+  return {
+    user,
+    session,
+  };
 });
 
 export const login = async (
