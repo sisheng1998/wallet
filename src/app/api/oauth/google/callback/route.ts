@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { generateIdFromEntropySize } from "lucia";
-import env from "@/lib/env";
+import ENV from "@/lib/env";
 import { getUrlWithError } from "@/lib/error";
 import { login } from "@/auth";
 import {
@@ -15,7 +15,7 @@ import { SETTINGS, getGoogleTokens, getGoogleUser } from "@/auth/google";
 const PROVIDER_ID = "google";
 
 export const GET = async (req: NextRequest): Promise<NextResponse> => {
-  const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = env;
+  const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = ENV;
 
   try {
     const url = new URL(req.url);

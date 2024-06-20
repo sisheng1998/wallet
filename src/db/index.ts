@@ -1,9 +1,9 @@
 import { drizzle } from "drizzle-orm/d1";
-import env from "@/lib/env";
+import ENV from "@/lib/env";
 import * as schema from "./schema";
 
 const getDB = () => {
-  const db = drizzle(env.DB, {
+  const db = drizzle(ENV.DB, {
     schema,
     logger: process.env.NODE_ENV === "development",
   });
