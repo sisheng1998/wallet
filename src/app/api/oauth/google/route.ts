@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import ENV from "@/lib/env";
+import env from "@/lib/env";
 import { SETTINGS, getGoogleOAuthInfo } from "@/auth/google";
 import { COOKIE_OPTIONS } from "@/auth/cookie";
 import { getUrlWithError } from "@/lib/error";
 
 export const GET = async (): Promise<NextResponse> => {
-  const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = ENV;
+  const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = env;
 
   try {
     const { url, state, codeVerifier } = await getGoogleOAuthInfo(
