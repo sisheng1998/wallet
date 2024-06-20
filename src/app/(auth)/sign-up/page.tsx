@@ -9,8 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Google from "@/icons/Google";
 import SignUpForm from "@/components/auth/SignUpForm";
+import GoogleOAuthButton from "@/components/auth/GoogleOAuthButton";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -25,12 +25,7 @@ const SignUp = () => (
       </CardHeader>
 
       <CardContent>
-        <Button variant="outline" className="w-full" asChild>
-          <Link href="/api/oauth/google">
-            <Google className="mr-2 h-4 w-4" />
-            Sign Up with Google
-          </Link>
-        </Button>
+        <GoogleOAuthButton action="Sign Up" />
 
         <div className="mb-1 mt-3 flex items-center">
           <div className="flex-grow border-t border-muted" />
