@@ -1,9 +1,10 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { getUser } from "@/auth";
+import { validateRequest } from "@/auth";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await getUser();
+  const { user } = await validateRequest();
+
   if (!user) redirect("/login");
 
   return children;
