@@ -2,15 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { generateIdFromEntropySize } from "lucia";
 import env from "@/lib/env";
-import { SETTINGS, getGoogleTokens, getGoogleUser } from "@/lib/auth/google";
 import { getUrlWithError } from "@/lib/error";
+import { login } from "@/auth";
 import {
   createUserAndOAuthAccount,
   getExistingOAuthAccount,
   getExistingUser,
   linkOAuthAccountToUser,
-} from "@/lib/auth/utils";
-import { login } from "@/lib/auth";
+} from "@/auth/utils";
+import { SETTINGS, getGoogleTokens, getGoogleUser } from "@/auth/google";
 
 const PROVIDER_ID = "google";
 

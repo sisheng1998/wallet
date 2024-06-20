@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import env from "@/lib/env";
-import { SETTINGS, getGoogleOAuthInfo } from "@/lib/auth/google";
-import { COOKIE_OPTIONS } from "@/lib/auth/cookie";
+import { SETTINGS, getGoogleOAuthInfo } from "@/auth/google";
+import { COOKIE_OPTIONS } from "@/auth/cookie";
 import { getUrlWithError } from "@/lib/error";
 
 export const GET = async (): Promise<NextResponse> => {
