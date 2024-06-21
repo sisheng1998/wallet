@@ -1,13 +1,18 @@
 import React from "react";
+import { Metadata } from "next";
 import LogoutButton from "@/components/auth/LogoutButton";
 
-const Home = () => {
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
+
+const Dashboard = () => {
   return (
     <div>
-      Home
+      Dashboard
       <LogoutButton />
     </div>
   );
 };
 
-export default Home;
+export default Dashboard;
