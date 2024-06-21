@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import env from "@/lib/env";
 import { SETTINGS, getGoogleOAuthInfo } from "@/auth/google";
 import { COOKIE_OPTIONS } from "@/auth/cookie";
-import { getUrlWithError } from "@/lib/error";
+import { getErrorResponse, getSuccessResponse } from "@/lib/response";
 
 export const GET = async (): Promise<NextResponse> => {
   const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = env;
@@ -18,9 +18,10 @@ export const GET = async (): Promise<NextResponse> => {
     cookies().set(SETTINGS.STATE_KEY, state, COOKIE_OPTIONS);
     cookies().set(SETTINGS.CODE_VERIFIER_KEY, codeVerifier, COOKIE_OPTIONS);
 
-    return NextResponse.redirect(url);
+    const response = getSuccessResponse({ url }, 200);
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    const url = getUrlWithError(BASE_URL, "/login", error);
-    return NextResponse.redirect(url);
+    const response = getErrorResponse(error, 500);
+    return NextResponse.json(response, { status: 500 });
   }
 };

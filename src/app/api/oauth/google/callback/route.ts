@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { generateIdFromEntropySize } from "lucia";
 import env from "@/lib/env";
-import { getUrlWithError } from "@/lib/error";
+import { getUrlWithError } from "@/lib/response";
 import { login } from "@/auth";
 import {
   createUserAndOAuthAccount,
