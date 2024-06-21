@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
 
 if (process.env.NODE_ENV === "development") {
@@ -5,6 +6,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+};
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
