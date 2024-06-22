@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -35,6 +36,20 @@ const SignUp = () => (
 
         <SignUpForm />
       </CardContent>
+
+      <CardFooter className="justify-center">
+        <p className="max-w-[24ch] text-center text-xs leading-normal text-muted-foreground">
+          By continuing, you agree to our{" "}
+          <Button variant="link" className="h-auto p-0 text-xs" asChild>
+            <Link href="/terms-of-service">Terms of Service</Link>
+          </Button>{" "}
+          and{" "}
+          <Button variant="link" className="h-auto p-0 text-xs" asChild>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+          </Button>
+          .
+        </p>
+      </CardFooter>
     </Card>
 
     <div className="flex items-baseline space-x-2">
