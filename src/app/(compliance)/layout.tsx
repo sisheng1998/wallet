@@ -13,6 +13,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
 
     <article className="prose prose-neutral">{children}</article>
 
+    <hr className="bg-border" />
+
     <p className="text-sm text-muted-foreground">
       Copyright © {new Date().getFullYear()} - Wallet
     </p>
