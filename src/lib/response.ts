@@ -1,30 +1,20 @@
-export type SuccessResponse<T> = {
-  status: "success";
-  status_code: number;
+export type SuccessResponse<T = null> = {
+  success: boolean;
   data: T;
 };
 
 export type ErrorResponse = {
-  status: "error";
-  status_code: number;
+  success: boolean;
   message: string;
 };
 
-export const getSuccessResponse = <T>(
-  data: T,
-  status_code: number,
-): SuccessResponse<T> => ({
-  status: "success",
-  status_code,
-  data,
+export const getSuccessResponse = <T = null>(data?: T): SuccessResponse<T> => ({
+  success: true,
+  data: data ?? (null as T),
 });
 
-export const getErrorResponse = (
-  error: any,
-  status_code: number,
-): ErrorResponse => ({
-  status: "error",
-  status_code,
+export const getErrorResponse = (error: any): ErrorResponse => ({
+  success: false,
   message:
     error instanceof Error
       ? error.message

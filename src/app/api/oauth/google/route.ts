@@ -18,10 +18,10 @@ export const GET = async (): Promise<NextResponse> => {
     cookies().set(SETTINGS.STATE_KEY, state, COOKIE_OPTIONS);
     cookies().set(SETTINGS.CODE_VERIFIER_KEY, codeVerifier, COOKIE_OPTIONS);
 
-    const response = getSuccessResponse({ url }, 200);
+    const response = getSuccessResponse({ url });
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    const response = getErrorResponse(error, 500);
+    const response = getErrorResponse(error);
     return NextResponse.json(response, { status: 500 });
   }
 };
