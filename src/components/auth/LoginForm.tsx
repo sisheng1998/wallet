@@ -56,7 +56,7 @@ const LoginForm = () => {
         ? "No active account found"
         : DEFAULT_ERROR_TITLE;
       const description = userNotFound
-        ? "Please sign up to create an account"
+        ? "Please sign up for an account"
         : message;
 
       toast({
