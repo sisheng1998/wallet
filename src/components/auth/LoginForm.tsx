@@ -4,6 +4,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import { login } from "@/auth/actions";
+import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import { Button } from "../ui/button";
 import {
   Form,
@@ -14,8 +16,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
 
-const formSchema = z.object({
+const loginFormSchema = z.object({
   email: z
     .string()
     .min(1, {
@@ -24,24 +27,50 @@ const formSchema = z.object({
     .email(),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 const LoginForm = () => {
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const { toast } = useToast();
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
     },
   });
 
-  const onSubmit = (values: FormValues) => {
-    const { email } = values;
-    console.log(email.toLowerCase());
+  const onSubmit = async (values: LoginFormValues) => {
+    const { success, message } = await login(values);
+
+    if (success) {
+      form.reset();
+
+      toast({
+        title: "Email sent!",
+        description: "Check your email for the link to login",
+      });
+    } else {
+      const userNotFound = message === "User not found";
+
+      const title = userNotFound
+        ? "No active account found"
+        : DEFAULT_ERROR_TITLE;
+      const description = userNotFound
+        ? "Please sign up to create an account"
+        : message;
+
+      toast({
+        variant: "destructive",
+        title,
+        description,
+      });
+    }
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    form.setValue(name as keyof FormValues, value.trim(), {
+
+    form.setValue(name as keyof LoginFormValues, value.trim(), {
       shouldValidate: true,
     });
   };

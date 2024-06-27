@@ -2,7 +2,11 @@
 import React from "react";
 import { useRouter } from "@/hooks/useRouter";
 import Google from "@/icons/Google";
-import { ErrorResponse, SuccessResponse } from "@/lib/response";
+import {
+  DEFAULT_ERROR_TITLE,
+  ErrorResponse,
+  SuccessResponse,
+} from "@/lib/response";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 
@@ -22,7 +26,7 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
 
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: DEFAULT_ERROR_TITLE,
         description: error.message,
       });
 

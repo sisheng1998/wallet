@@ -45,6 +45,7 @@ const SignUpForm = () => {
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     form.setValue(name as keyof FormValues, value.trim(), {
       shouldValidate: true,
     });

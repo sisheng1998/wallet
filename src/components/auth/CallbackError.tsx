@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "@/hooks/useRouter";
+import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import { useToast } from "../ui/use-toast";
 
 const CallbackError = () => {
@@ -18,7 +19,7 @@ const CallbackError = () => {
     const timeout = setTimeout(() => {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: DEFAULT_ERROR_TITLE,
         description: error,
       });
 

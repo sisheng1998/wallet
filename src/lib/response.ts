@@ -1,4 +1,8 @@
-export type SuccessResponse<T = null> = {
+const DEFAULT_ERROR_MESSAGE = "An unknown error occurred";
+
+export const DEFAULT_ERROR_TITLE = "Uh oh! Something went wrong.";
+
+export type SuccessResponse<T> = {
   success: boolean;
   data: T;
 };
@@ -8,9 +12,9 @@ export type ErrorResponse = {
   message: string;
 };
 
-export const getSuccessResponse = <T = null>(data?: T): SuccessResponse<T> => ({
+export const getSuccessResponse = <T>(data?: T): SuccessResponse<T> => ({
   success: true,
-  data: data ?? (null as T),
+  data: data as T,
 });
 
 export const getErrorResponse = (error: any): ErrorResponse => ({
@@ -20,7 +24,7 @@ export const getErrorResponse = (error: any): ErrorResponse => ({
       ? error.message
       : typeof error === "string"
         ? error
-        : "An unknown error occurred",
+        : DEFAULT_ERROR_MESSAGE,
 });
 
 export const getUrlWithError = (
@@ -36,8 +40,28 @@ export const getUrlWithError = (
       ? error.message
       : typeof error === "string"
         ? error
-        : "An unknown error occurred",
+        : DEFAULT_ERROR_MESSAGE,
   );
 
   return url;
 };
+
+export type ActionResponse = {
+  success: boolean;
+  message: string;
+};
+
+export const getActionSuccessResponse = (message: string): ActionResponse => ({
+  success: true,
+  message,
+});
+
+export const getActionErrorResponse = (error: unknown): ActionResponse => ({
+  success: false,
+  message:
+    error instanceof Error
+      ? error.message
+      : typeof error === "string"
+        ? error
+        : DEFAULT_ERROR_MESSAGE,
+});
