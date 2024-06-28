@@ -1,12 +1,14 @@
 "use server";
 import { cookies } from "next/headers";
-import { LoginFormValues } from "@/components/auth/LoginForm";
+import { generateIdFromEntropySize } from "lucia";
+import { FormValues as LoginFormValues } from "@/components/auth/LoginForm";
+import { FormValues as SignUpFormValues } from "@/components/auth/SignUpForm";
 import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response";
 import { lucia, validateRequest } from ".";
-import { getExistingUser } from "./utils";
+import { createUser, getExistingUser } from "./utils";
 import {
   deleteMagicLinkTokens,
   generateMagicLink,
@@ -31,6 +33,30 @@ export const login = async (values: LoginFormValues) => {
     console.log(url);
 
     return getActionSuccessResponse("Email sent");
+  } catch (error) {
+    return getActionErrorResponse(error);
+  }
+};
+
+export const signUp = async (values: SignUpFormValues) => {
+  try {
+    const email = values.email.trim().toLowerCase();
+    const existingUser = await getExistingUser(email);
+
+    if (existingUser) {
+      throw new Error("User already exists");
+    }
+
+    const userId = generateIdFromEntropySize(10);
+    await createUser(userId, values.name, email);
+
+    const { url, token, expiresAt } = await generateMagicLink(userId);
+    await saveMagicLinkToken(userId, token, expiresAt);
+
+    // TODO: Send email with magic link
+    console.log(url);
+
+    return getActionSuccessResponse("Account created");
   } catch (error) {
     return getActionErrorResponse(error);
   }

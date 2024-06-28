@@ -4,6 +4,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import { signUp } from "@/auth/actions";
+import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import { Button } from "../ui/button";
 import {
   Form,
@@ -14,6 +16,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -27,9 +30,11 @@ const formSchema = z.object({
     .email(),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+  const { toast } = useToast();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,9 +43,30 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
-    const { name, email } = values;
-    console.log(name, email.toLowerCase());
+  const onSubmit = async (values: FormValues) => {
+    const { success, message } = await signUp(values);
+
+    if (success) {
+      form.reset();
+
+      toast({
+        title: "Account created!",
+        description: "Check your email for the link to login",
+      });
+    } else {
+      const userExists = message === "User already exists";
+
+      const title = userExists
+        ? "Account already exists."
+        : DEFAULT_ERROR_TITLE;
+      const description = userExists ? "Please login instead" : message;
+
+      toast({
+        variant: "destructive",
+        title,
+        description,
+      });
+    }
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {

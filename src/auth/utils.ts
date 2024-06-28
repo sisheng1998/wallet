@@ -49,3 +49,10 @@ export const createUserAndOAuthAccount = async (
       userId,
     }),
   ]);
+
+export const createUser = async (userId: string, name: string, email: string) =>
+  await db.insert(users).values({
+    id: userId,
+    name,
+    email: email.trim().toLowerCase(),
+  });
