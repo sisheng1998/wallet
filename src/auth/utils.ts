@@ -1,6 +1,7 @@
 import { and, eq } from "drizzle-orm";
-import { oauthAccounts, users } from "@/db/schema";
 import { db } from "@/db";
+import { oauthAccounts, users } from "@/db/schema";
+import { lower } from "@/db/utils";
 
 export const getExistingOAuthAccount = async (
   providerId: string,
@@ -15,7 +16,7 @@ export const getExistingOAuthAccount = async (
 
 export const getExistingUser = async (email: string) =>
   await db.query.users.findFirst({
-    where: eq(users.email, email),
+    where: eq(lower(users.email), email.trim().toLowerCase()),
   });
 
 export const linkOAuthAccountToUser = async (
@@ -40,7 +41,7 @@ export const createUserAndOAuthAccount = async (
     db.insert(users).values({
       id: userId,
       name,
-      email,
+      email: email.trim().toLowerCase(),
     }),
     db.insert(oauthAccounts).values({
       providerId,

@@ -15,7 +15,7 @@ import {
 
 export const login = async (values: LoginFormValues) => {
   try {
-    const email = values.email.trim();
+    const email = values.email.trim().toLowerCase();
     const existingUser = await getExistingUser(email);
 
     if (!existingUser) {
