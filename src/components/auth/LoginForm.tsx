@@ -18,7 +18,7 @@ import {
 import { Input } from "../ui/input";
 import { useToast } from "../ui/use-toast";
 
-const loginFormSchema = z.object({
+const formSchema = z.object({
   email: z
     .string()
     .min(1, {
@@ -27,19 +27,19 @@ const loginFormSchema = z.object({
     .email(),
 });
 
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
   const { toast } = useToast();
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
     },
   });
 
-  const onSubmit = async (values: LoginFormValues) => {
+  const onSubmit = async (values: FormValues) => {
     const { success, message } = await login(values);
 
     if (success) {
@@ -52,9 +52,7 @@ const LoginForm = () => {
     } else {
       const userNotFound = message === "User not found";
 
-      const title = userNotFound
-        ? "No active account found"
-        : DEFAULT_ERROR_TITLE;
+      const title = userNotFound ? "No account found." : DEFAULT_ERROR_TITLE;
       const description = userNotFound
         ? "Please sign up for an account"
         : message;
@@ -70,7 +68,7 @@ const LoginForm = () => {
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    form.setValue(name as keyof LoginFormValues, value.trim(), {
+    form.setValue(name as keyof FormValues, value.trim(), {
       shouldValidate: true,
     });
   };

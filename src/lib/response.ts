@@ -17,15 +17,14 @@ export const getSuccessResponse = <T>(data?: T): SuccessResponse<T> => ({
   data: data as T,
 });
 
-export const getErrorResponse = (error: any): ErrorResponse => ({
-  success: false,
-  message:
-    error instanceof Error
-      ? error.message
-      : typeof error === "string"
-        ? error
-        : DEFAULT_ERROR_MESSAGE,
-});
+export const getErrorResponse = (error: any): ErrorResponse => {
+  const message = getErrorMessage(error);
+
+  return {
+    success: false,
+    message,
+  };
+};
 
 export const getUrlWithError = (
   baseUrl: string,
@@ -33,15 +32,9 @@ export const getUrlWithError = (
   error: unknown,
 ) => {
   const url = new URL(path, baseUrl);
+  const message = getErrorMessage(error);
 
-  url.searchParams.set(
-    "error",
-    error instanceof Error
-      ? error.message
-      : typeof error === "string"
-        ? error
-        : DEFAULT_ERROR_MESSAGE,
-  );
+  url.searchParams.set("error", message);
 
   return url;
 };
@@ -56,12 +49,29 @@ export const getActionSuccessResponse = (message: string): ActionResponse => ({
   message,
 });
 
-export const getActionErrorResponse = (error: unknown): ActionResponse => ({
-  success: false,
-  message:
+export const getActionErrorResponse = (error: unknown): ActionResponse => {
+  const message = getErrorMessage(error);
+
+  return {
+    success: false,
+    message,
+  };
+};
+
+const getErrorMessage = (error: unknown): string => {
+  const errorMessage =
     error instanceof Error
       ? error.message
       : typeof error === "string"
         ? error
-        : DEFAULT_ERROR_MESSAGE,
-});
+        : DEFAULT_ERROR_MESSAGE;
+
+  logErrorMessage(errorMessage);
+
+  return errorMessage;
+};
+
+const logErrorMessage = (message: string) => {
+  if (process.env.NODE_ENV !== "development") return;
+  console.error("[Error]:", message);
+};
