@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -35,6 +36,12 @@ const Login = () => (
 
         <LoginForm />
       </CardContent>
+
+      <CardFooter className="justify-center">
+        <p className="max-w-[24ch] text-center text-xs leading-normal text-muted-foreground">
+          {`Get a magic link sent to your email that'll sign you in instantly!`}
+        </p>
+      </CardFooter>
     </Card>
 
     <div className="flex items-baseline space-x-2">

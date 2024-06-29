@@ -47,7 +47,7 @@ const SignUpForm = () => {
       form.reset();
 
       toast.success("Account created!", {
-        description: "Check your email for the link to login",
+        description: "Check your email for the magic link to login",
       });
     } else {
       const userExists = message === "User already exists";

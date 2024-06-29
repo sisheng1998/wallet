@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { Mail } from "lucide-react";
 import { login } from "@/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
@@ -43,7 +44,7 @@ const LoginForm = () => {
       form.reset();
 
       toast.success("Email sent!", {
-        description: "Check your email for the link to login",
+        description: "Check your email for the magic link to login",
       });
     } else {
       const userNotFound = message === "User not found";
@@ -92,8 +93,9 @@ const LoginForm = () => {
           type="submit"
           className="w-full"
           isLoading={form.formState.isSubmitting}
+          icon={Mail}
         >
-          Login
+          Send Magic Link
         </LoaderButton>
       </form>
     </Form>
