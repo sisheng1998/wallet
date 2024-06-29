@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -33,8 +33,6 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
-  const { toast } = useToast();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,8 +47,7 @@ const SignUpForm = () => {
     if (success) {
       form.reset();
 
-      toast({
-        title: "Account created!",
+      toast.success("Account created!", {
         description: "Check your email for the link to login",
       });
     } else {
@@ -61,9 +58,7 @@ const SignUpForm = () => {
         : DEFAULT_ERROR_TITLE;
       const description = userExists ? "Please login instead" : message;
 
-      toast({
-        variant: "destructive",
-        title,
+      toast.error(title, {
         description,
       });
     }

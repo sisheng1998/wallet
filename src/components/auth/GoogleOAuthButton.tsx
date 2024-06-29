@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { toast } from "sonner";
 import { useRouter } from "@/hooks/useRouter";
 import Google from "@/icons/Google";
 import {
@@ -7,7 +8,6 @@ import {
   ErrorResponse,
   SuccessResponse,
 } from "@/lib/response";
-import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 
 type Result = {
@@ -15,7 +15,6 @@ type Result = {
 };
 
 const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
-  const { toast } = useToast();
   const { push } = useRouter();
 
   const handleClick = async () => {
@@ -24,9 +23,7 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
     if (!response.ok) {
       const error = (await response.json()) as ErrorResponse;
 
-      toast({
-        variant: "destructive",
-        title: DEFAULT_ERROR_TITLE,
+      toast.error(DEFAULT_ERROR_TITLE, {
         description: error.message,
       });
 

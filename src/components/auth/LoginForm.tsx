@@ -3,10 +3,9 @@ import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { login } from "@/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
-import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
@@ -16,7 +15,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useToast } from "../ui/use-toast";
+import { LoaderButton } from "../loader-button";
 
 const formSchema = z.object({
   email: z
@@ -30,8 +29,6 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
-  const { toast } = useToast();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,21 +42,18 @@ const LoginForm = () => {
     if (success) {
       form.reset();
 
-      toast({
-        title: "Email sent!",
+      toast.success("Email sent!", {
         description: "Check your email for the link to login",
       });
     } else {
       const userNotFound = message === "User not found";
 
-      const title = userNotFound ? "No account found." : DEFAULT_ERROR_TITLE;
+      const title = userNotFound ? "Account not found." : DEFAULT_ERROR_TITLE;
       const description = userNotFound
         ? "Please sign up for an account"
         : message;
 
-      toast({
-        variant: "destructive",
-        title,
+      toast.error(title, {
         description,
       });
     }
@@ -94,16 +88,13 @@ const LoginForm = () => {
           )}
         />
 
-        <Button
+        <LoaderButton
           type="submit"
           className="w-full"
-          disabled={form.formState.isSubmitting}
+          isLoading={form.formState.isSubmitting}
         >
-          {form.formState.isSubmitting && (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          )}
           Login
-        </Button>
+        </LoaderButton>
       </form>
     </Form>
   );

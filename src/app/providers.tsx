@@ -1,7 +1,7 @@
 import React from "react";
 import ThemeProvider from "@/components/theme-provider";
 import TopLoader from "@/components/top-loader";
-import Toaster from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <ThemeProvider
@@ -11,9 +11,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => (
     disableTransitionOnChange
   >
     <TopLoader />
-
     {children}
-
     <Toaster />
   </ThemeProvider>
 );

@@ -1,12 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 import { useRouter } from "@/hooks/useRouter";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
-import { useToast } from "../ui/use-toast";
 
 const CallbackError = () => {
-  const { toast } = useToast();
   const { replace } = useRouter();
 
   const pathname = usePathname();
@@ -17,9 +16,7 @@ const CallbackError = () => {
     if (!error) return;
 
     const timeout = setTimeout(() => {
-      toast({
-        variant: "destructive",
-        title: DEFAULT_ERROR_TITLE,
+      toast.error(DEFAULT_ERROR_TITLE, {
         description: error,
       });
 
@@ -27,7 +24,7 @@ const CallbackError = () => {
     }, 0);
 
     return () => clearTimeout(timeout);
-  }, [error, toast, replace, pathname]);
+  }, [error, replace, pathname]);
 
   return null;
 };
