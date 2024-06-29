@@ -3,14 +3,14 @@ import { cookies } from "next/headers";
 import { generateIdFromEntropySize } from "lucia";
 import env from "@/lib/env";
 import { getUrlWithError } from "@/lib/response";
-import { login } from "@/auth";
+import { login } from "@/lib/auth";
 import {
   createUserAndOAuthAccount,
   getExistingOAuthAccount,
   getExistingUser,
   linkOAuthAccountToUser,
-} from "@/auth/utils";
-import { SETTINGS, getGoogleTokens, getGoogleUser } from "@/auth/google";
+} from "@/lib/auth/utils";
+import { SETTINGS, getGoogleTokens, getGoogleUser } from "@/lib/auth/google";
 
 const PROVIDER_ID = "google";
 

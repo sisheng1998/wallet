@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import env from "@/lib/env";
 import { getUrlWithError } from "@/lib/response";
-import { login } from "@/auth";
+import { login } from "@/lib/auth";
 import {
   deleteMagicLinkTokens,
   getExistingMagicLinkToken,
   getUserId,
-} from "@/auth/magic-link";
+} from "@/lib/auth/magic-link";
 
 export const GET = async (req: NextRequest): Promise<NextResponse> => {
   const { BASE_URL } = env;

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { signUp } from "@/auth/actions";
+import { signUp } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
   Form,

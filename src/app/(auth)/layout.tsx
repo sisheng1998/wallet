@@ -1,6 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { validateRequest } from "@/auth";
+import { validateRequest } from "@/lib/auth";
 import Logo from "@/icons/Logo";
 import CallbackError from "@/components/auth/CallbackError";
 

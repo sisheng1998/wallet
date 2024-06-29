@@ -2,7 +2,7 @@
 import React from "react";
 import { toast } from "sonner";
 import { useRouter } from "@/hooks/useRouter";
-import { logout } from "@/auth/actions";
+import { logout } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import { Button } from "../ui/button";
 

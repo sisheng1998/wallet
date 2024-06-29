@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
-import { login } from "@/auth/actions";
+import { login } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
   Form,
