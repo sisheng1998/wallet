@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "@/hooks/useRouter";
 import Google from "@/icons/Google";
@@ -8,7 +8,7 @@ import {
   ErrorResponse,
   SuccessResponse,
 } from "@/lib/response";
-import { Button } from "../ui/button";
+import { LoaderButton } from "../loader-button";
 
 type Result = {
   url: string;
@@ -16,8 +16,11 @@ type Result = {
 
 const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
   const { push } = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = async () => {
+    setIsLoading(true);
+
     const response = await fetch("/api/oauth/google");
 
     if (!response.ok) {
@@ -27,6 +30,7 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
         description: error.message,
       });
 
+      setIsLoading(false);
       return;
     }
 
@@ -38,10 +42,15 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
   };
 
   return (
-    <Button variant="outline" className="w-full" onClick={handleClick}>
-      <Google className="mr-2 h-4 w-4" />
+    <LoaderButton
+      variant="outline"
+      className="w-full"
+      onClick={handleClick}
+      isLoading={isLoading}
+      icon={Google}
+    >
       {action} with Google
-    </Button>
+    </LoaderButton>
   );
 };
 

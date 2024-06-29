@@ -3,10 +3,9 @@ import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { signUp } from "@/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
-import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
@@ -16,7 +15,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { toast } from "sonner";
+import { LoaderButton } from "../loader-button";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -111,16 +110,13 @@ const SignUpForm = () => {
           )}
         />
 
-        <Button
+        <LoaderButton
           type="submit"
           className="w-full"
-          disabled={form.formState.isSubmitting}
+          isLoading={form.formState.isSubmitting}
         >
-          {form.formState.isSubmitting && (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          )}
           Sign Up
-        </Button>
+        </LoaderButton>
       </form>
     </Form>
   );
