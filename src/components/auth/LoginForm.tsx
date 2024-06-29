@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
-import { login } from "@/lib/auth/actions";
+import { sendMagicLink } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
   Form,
@@ -38,7 +38,7 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    const { success, message } = await login(values);
+    const { success, message } = await sendMagicLink(values);
 
     if (success) {
       form.reset();

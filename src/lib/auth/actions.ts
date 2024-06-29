@@ -14,8 +14,9 @@ import {
   generateMagicLink,
   saveMagicLinkToken,
 } from "./magic-link";
+import { sendEmail, verifyEmail } from "@/email/action";
 
-export const login = async (values: LoginFormValues) => {
+export const sendMagicLink = async (values: LoginFormValues) => {
   try {
     const email = values.email.trim().toLowerCase();
     const existingUser = await getExistingUser(email);
@@ -29,8 +30,7 @@ export const login = async (values: LoginFormValues) => {
     const { url, token, expiresAt } = await generateMagicLink(existingUser.id);
     await saveMagicLinkToken(existingUser.id, token, expiresAt);
 
-    // TODO: Send email with magic link
-    console.log(url);
+    await sendEmail(existingUser.name, email, "Magic Link", url);
 
     return getActionSuccessResponse("Email sent");
   } catch (error) {
@@ -47,14 +47,19 @@ export const signUp = async (values: SignUpFormValues) => {
       throw new Error("User already exists");
     }
 
+    const result = await verifyEmail(email);
+
+    if (!result.success) {
+      throw new Error(result.message);
+    }
+
     const userId = generateIdFromEntropySize(10);
     await createUser(userId, values.name, email);
 
     const { url, token, expiresAt } = await generateMagicLink(userId);
     await saveMagicLinkToken(userId, token, expiresAt);
 
-    // TODO: Send email with magic link
-    console.log(url);
+    await sendEmail(values.name, email, "Magic Link", url);
 
     return getActionSuccessResponse("Account created");
   } catch (error) {
