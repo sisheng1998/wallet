@@ -10,8 +10,8 @@ type LoaderButtonProps = ButtonProps & {
 export const LoaderButton = React.forwardRef<
   HTMLButtonElement,
   LoaderButtonProps
->(({ icon: Icon, isLoading, children, ...props }, ref) => (
-  <Button ref={ref} disabled={isLoading} {...props}>
+>(({ icon: Icon, isLoading, disabled, children, ...props }, ref) => (
+  <Button ref={ref} disabled={disabled || isLoading} {...props}>
     {isLoading ? (
       <Loader2 className="mr-2 size-4 animate-spin" />
     ) : Icon ? (

@@ -1,31 +1,23 @@
 "use server";
 import { cookies } from "next/headers";
 import { generateIdFromEntropySize } from "lucia";
-import { FormValues as LoginFormValues } from "@/components/auth/LoginForm";
-import { FormValues as SignUpFormValues } from "@/components/auth/SignUpForm";
+import { sendEmail, verifyEmail } from "@/email/utils";
 import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response";
-import { lucia, validateRequest } from ".";
+import { login, lucia, validateRequest } from ".";
 import { createUser, getExistingUser } from "./utils";
-import {
-  deleteMagicLinkTokens,
-  generateMagicLink,
-  saveMagicLinkToken,
-} from "./magic-link";
-import { sendEmail, verifyEmail } from "@/email/action";
+import { generateMagicLink, saveMagicLinkToken } from "./magic-link";
+import { deleteOTP, generateOTP, getExistingOTP, saveOTP } from "./otp";
 
-export const sendMagicLink = async (values: LoginFormValues) => {
+export const sendMagicLink = async (email: string) => {
   try {
-    const email = values.email.trim().toLowerCase();
     const existingUser = await getExistingUser(email);
 
     if (!existingUser) {
       throw new Error("User not found");
     }
-
-    await deleteMagicLinkTokens(existingUser.id);
 
     const { url, token, expiresAt } = await generateMagicLink(existingUser.id);
     await saveMagicLinkToken(existingUser.id, token, expiresAt);
@@ -38,28 +30,59 @@ export const sendMagicLink = async (values: LoginFormValues) => {
   }
 };
 
-export const signUp = async (values: SignUpFormValues) => {
+export const sendOTP = async (email: string) => {
   try {
-    const email = values.email.trim().toLowerCase();
+    const existingUser = await getExistingUser(email);
+
+    if (!existingUser) {
+      throw new Error("User not found");
+    }
+
+    const { code, expiresAt } = generateOTP(6);
+    await saveOTP(existingUser.id, code, expiresAt);
+
+    await sendEmail(existingUser.name, email, "OTP", code);
+
+    return getActionSuccessResponse("Email sent");
+  } catch (error) {
+    return getActionErrorResponse(error);
+  }
+};
+
+export const loginWithOTP = async (email: string, otp: string) => {
+  try {
+    const { userId, code } = await getExistingOTP(email);
+
+    if (code !== otp) {
+      throw new Error("Invalid OTP");
+    }
+
+    await deleteOTP(userId);
+
+    await login(userId);
+    return getActionSuccessResponse("Logged in");
+  } catch (error) {
+    return getActionErrorResponse(error);
+  }
+};
+
+export const signUp = async (name: string, email: string) => {
+  try {
     const existingUser = await getExistingUser(email);
 
     if (existingUser) {
       throw new Error("User already exists");
     }
 
-    const result = await verifyEmail(email);
-
-    if (!result.success) {
-      throw new Error(result.message);
-    }
+    await verifyEmail(email);
 
     const userId = generateIdFromEntropySize(10);
-    await createUser(userId, values.name, email);
+    await createUser(userId, name, email);
 
-    const { url, token, expiresAt } = await generateMagicLink(userId);
-    await saveMagicLinkToken(userId, token, expiresAt);
+    const { code, expiresAt } = generateOTP(6);
+    await saveOTP(userId, code, expiresAt);
 
-    await sendEmail(values.name, email, "Magic Link", url);
+    await sendEmail(name, email, "OTP", code);
 
     return getActionSuccessResponse("Account created");
   } catch (error) {

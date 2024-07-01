@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
-import { sendMagicLink } from "@/lib/auth/actions";
+import { useRouter } from "@/hooks/useRouter";
+import { useAuth } from "@/hooks/useAuth";
+import { sendOTP } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
   Form,
@@ -27,9 +29,12 @@ const formSchema = z.object({
     .email(),
 });
 
-export type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
+  const { push } = useRouter();
+  const { setEmail } = useAuth();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,14 +43,16 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    const { success, message } = await sendMagicLink(values);
+    const email = values.email.trim().toLowerCase();
+    const { success, message } = await sendOTP(email);
 
     if (success) {
-      form.reset();
-
       toast.success("Email sent!", {
-        description: "Check your email for the magic link to login",
+        description: "Check your email for the OTP to login",
       });
+
+      setEmail(email);
+      push("/verification");
     } else {
       const userNotFound = message === "User not found";
 
@@ -95,7 +102,7 @@ const LoginForm = () => {
           isLoading={form.formState.isSubmitting}
           icon={Mail}
         >
-          Send Magic Link
+          Send OTP
         </LoaderButton>
       </form>
     </Form>

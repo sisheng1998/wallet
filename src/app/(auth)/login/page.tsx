@@ -39,7 +39,7 @@ const Login = () => (
 
       <CardFooter className="justify-center">
         <p className="max-w-[24ch] text-center text-xs leading-normal text-muted-foreground">
-          {`Get a magic link sent to your email that'll sign you in instantly!`}
+          {`We'll send you a One-Time Password (OTP) to your email to login.`}
         </p>
       </CardFooter>
     </Card>

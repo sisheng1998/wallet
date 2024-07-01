@@ -4,6 +4,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useRouter } from "@/hooks/useRouter";
+import { useAuth } from "@/hooks/useAuth";
 import { signUp } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
 import {
@@ -29,9 +31,12 @@ const formSchema = z.object({
     .email(),
 });
 
-export type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+  const { push } = useRouter();
+  const { setEmail } = useAuth();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,14 +46,18 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    const { success, message } = await signUp(values);
+    const email = values.email.trim().toLowerCase();
+    const name = values.name.trim();
+
+    const { success, message } = await signUp(name, email);
 
     if (success) {
-      form.reset();
-
       toast.success("Account created!", {
-        description: "Check your email for the magic link to login",
+        description: "Check your email for the OTP to login",
       });
+
+      setEmail(email);
+      push("/verification");
     } else {
       const userExists = message === "User already exists";
 
