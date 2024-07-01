@@ -45,7 +45,9 @@ export const getGoogleTokens = async (
   codeVerifier: string,
 ) => {
   const google = new Google(clientId, clientSecret, redirectURI);
+
   const tokens = await google.validateAuthorizationCode(code, codeVerifier);
+
   return tokens;
 };
 
@@ -60,6 +62,8 @@ export const getGoogleUser = async (
       },
     },
   );
+
   const googleUser = (await response.json()) as GoogleUser;
+
   return googleUser;
 };

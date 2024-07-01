@@ -1,12 +1,5 @@
-"use server";
 import env from "@/lib/env";
-import {
-  getActionErrorResponse,
-  getActionSuccessResponse,
-} from "@/lib/response";
-import { EmailVerificationResult, Response } from "./types";
-
-// TODO: Create email template
+import { EmailSentInfo, EmailVerificationResult, Response } from "./types";
 
 const FROM = {
   name: "Wallet",
@@ -34,20 +27,20 @@ export const sendEmail = async (
           email,
         },
         from: FROM,
-        subject: `[Wallet] ${subject}`,
+        subject,
         html,
       }),
     });
 
-    const data = (await response.json()) as Response;
+    const data = (await response.json()) as Response<EmailSentInfo>;
 
     if (!data.success) {
       throw new Error(data.message);
     }
 
-    return getActionSuccessResponse("Email sent");
+    return data.body as EmailSentInfo;
   } catch (error) {
-    return getActionErrorResponse(error);
+    throw error;
   }
 };
 
@@ -81,8 +74,8 @@ export const verifyEmail = async (email: string) => {
       throw new Error("Email not exist");
     }
 
-    return getActionSuccessResponse("Email is valid");
+    return body;
   } catch (error) {
-    return getActionErrorResponse(error);
+    throw error;
   }
 };

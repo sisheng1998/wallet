@@ -54,7 +54,8 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
     // If the user already has an OAuth account, log them in
     if (existingOAuthAccount) {
-      return await login(existingOAuthAccount.userId, BASE_URL);
+      await login(existingOAuthAccount.userId);
+      return NextResponse.redirect(BASE_URL);
     }
 
     const existingUser = await getExistingUser(email);
@@ -67,7 +68,8 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
         providerUserId,
       );
 
-      return await login(existingUser.id, BASE_URL);
+      await login(existingUser.id);
+      return NextResponse.redirect(BASE_URL);
     }
 
     // Otherwise, create a new user and log them in
@@ -81,7 +83,8 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       providerUserId,
     );
 
-    return await login(userId, BASE_URL);
+    await login(userId);
+    return NextResponse.redirect(BASE_URL);
   } catch (error) {
     const url = getUrlWithError(BASE_URL, "/login", error);
     return NextResponse.redirect(url);

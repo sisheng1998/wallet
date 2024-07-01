@@ -3,7 +3,7 @@ import env from "@/lib/env";
 import { getUrlWithError } from "@/lib/response";
 import { login } from "@/lib/auth";
 import {
-  deleteMagicLinkTokens,
+  deleteMagicLinkToken,
   getExistingMagicLinkToken,
   getUserId,
 } from "@/lib/auth/magic-link";
@@ -20,13 +20,14 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
     if (!token) throw new Error("Missing token");
 
     const userId = await getUserId(token);
-    const existingToken = await getExistingMagicLinkToken(token);
+    const existingToken = await getExistingMagicLinkToken(userId);
 
     if (!existingToken) throw new Error("Invalid token");
 
-    await deleteMagicLinkTokens(userId);
+    await deleteMagicLinkToken(userId);
 
-    return await login(userId, BASE_URL);
+    await login(userId);
+    return NextResponse.redirect(BASE_URL);
   } catch (error) {
     const url = getUrlWithError(BASE_URL, "/login", error);
     return NextResponse.redirect(url);

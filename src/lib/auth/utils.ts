@@ -3,6 +3,10 @@ import { db } from "@/db";
 import { oauthAccounts, users } from "@/db/schema";
 import { lower } from "@/db/utils";
 
+export const VALIDITY_DURATION = 5 * 60; // 5 minutes
+
+export const getCurrentUnixTimestamp = () => Math.floor(Date.now() / 1000);
+
 export const getExistingOAuthAccount = async (
   providerId: string,
   providerUserId: string,

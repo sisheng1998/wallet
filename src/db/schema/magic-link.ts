@@ -7,7 +7,8 @@ export const magicLinks = sqliteTable("magic_links", {
     .notNull()
     .references(() => users.id, {
       onDelete: "cascade",
-    }),
+    })
+    .unique(),
   token: text("token").notNull(),
   expiresAt: integer("expires_at").notNull(),
 });
