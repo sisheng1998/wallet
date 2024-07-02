@@ -1,5 +1,6 @@
-import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { users } from "./user";
+import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core"
+
+import { users } from "@/db/schema/user"
 
 export const oauthAccounts = sqliteTable(
   "oauth_accounts",
@@ -16,5 +17,5 @@ export const oauthAccounts = sqliteTable(
     pk: primaryKey({
       columns: [table.providerId, table.providerUserId],
     }),
-  }),
-);
+  })
+)

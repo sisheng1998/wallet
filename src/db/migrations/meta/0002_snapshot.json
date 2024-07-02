@@ -32,16 +32,12 @@
       "indexes": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "emailUniqueIndex": {
           "name": "emailUniqueIndex",
-          "columns": [
-            "lower(\"email\")"
-          ],
+          "columns": ["lower(\"email\")"],
           "isUnique": true
         }
       },
@@ -80,12 +76,8 @@
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -124,22 +116,15 @@
           "name": "oauth_accounts_user_id_users_id_fk",
           "tableFrom": "oauth_accounts",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
         "oauth_accounts_provider_id_provider_user_id_pk": {
-          "columns": [
-            "provider_id",
-            "provider_user_id"
-          ],
+          "columns": ["provider_id", "provider_user_id"],
           "name": "oauth_accounts_provider_id_provider_user_id_pk"
         }
       },
@@ -183,12 +168,8 @@
           "name": "magic_links_user_id_users_id_fk",
           "tableFrom": "magic_links",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }

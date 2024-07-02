@@ -1,5 +1,6 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { users } from "./user";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
+
+import { users } from "@/db/schema/user"
 
 export const magicLinks = sqliteTable("magic_links", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
@@ -11,4 +12,4 @@ export const magicLinks = sqliteTable("magic_links", {
     .unique(),
   token: text("token").notNull(),
   expiresAt: integer("expires_at").notNull(),
-});
+})

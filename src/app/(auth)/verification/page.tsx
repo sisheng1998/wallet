@@ -1,29 +1,33 @@
-import React from "react";
-import { Metadata } from "next";
-import Link from "next/link";
+import React from "react"
+import { Metadata } from "next"
+import Link from "next/link"
+
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/card"
+import ResendOTPButton from "@/components/auth/ResendOTPButton"
 import VerificationForm, {
-  Instruction,
-} from "@/components/auth/VerificationForm";
-import ResendOTPButton from "@/components/auth/ResendOTPButton";
+  Description,
+} from "@/components/auth/VerificationForm"
 
 export const metadata: Metadata = {
   title: "Verification",
-};
+}
 
 const Verification = () => (
   <>
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
         <CardTitle>Verification</CardTitle>
-        <Instruction />
+        <CardDescription className="whitespace-pre-line">
+          <Description />
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -39,6 +43,6 @@ const Verification = () => (
       <Link href="/login">Back to Login</Link>
     </Button>
   </>
-);
+)
 
-export default Verification;
+export default Verification

@@ -1,4 +1,4 @@
-import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies"
 
 export const COOKIE_OPTIONS: Partial<ResponseCookie> = {
   path: "/",
@@ -6,4 +6,4 @@ export const COOKIE_OPTIONS: Partial<ResponseCookie> = {
   httpOnly: true,
   maxAge: 60 * 10,
   sameSite: "lax",
-};
+}

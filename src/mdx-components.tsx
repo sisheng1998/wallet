@@ -1,7 +1,8 @@
-import Link from "next/link";
-import Image, { ImageProps } from "next/image";
-import type { MDXComponents } from "mdx/types";
-import { Button } from "./components/ui/button";
+import Image, { ImageProps } from "next/image"
+import Link from "next/link"
+import type { MDXComponents } from "mdx/types"
+
+import { Button } from "@/components/ui/button"
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => ({
   a: ({ href, children }) => (
@@ -23,4 +24,4 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => ({
     />
   ),
   ...components,
-});
+})

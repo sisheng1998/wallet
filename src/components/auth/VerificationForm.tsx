@@ -1,70 +1,61 @@
-"use client";
-import React, { useEffect } from "react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { useRouter } from "@/hooks/useRouter";
-import { useAuth } from "@/hooks/useAuth";
-import { loginWithOTP } from "@/lib/auth/actions";
-import { DEFAULT_ERROR_TITLE } from "@/lib/response";
-import { CardDescription } from "../ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "../ui/form";
+"use client"
+
+import React, { useEffect } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { REGEXP_ONLY_DIGITS } from "input-otp"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
+
+import { loginWithOTP } from "@/lib/auth/actions"
+import { DEFAULT_ERROR_TITLE } from "@/lib/response"
+import { useAuth } from "@/hooks/useAuth"
+import { useRouter } from "@/hooks/useRouter"
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "../ui/input-otp";
+} from "@/components/ui/input-otp"
 
 const formSchema = z.object({
   code: z.string().min(6, {
     message: "OTP must be 6 digits long",
   }),
-});
+})
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>
 
 const VerificationForm = () => {
-  const { replace } = useRouter();
-  const { email } = useAuth();
+  const { replace } = useRouter()
+  const { email } = useAuth()
 
   useEffect(() => {
     if (!email) {
-      replace("/login");
+      replace("/login")
     }
-  }, [email, replace]);
+  }, [email, replace])
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       code: "",
     },
-  });
+  })
 
   const onSubmit = async (values: FormValues) => {
-    const { code } = values;
-    const { success, message } = await loginWithOTP(email, code);
+    const { code } = values
+    const { success, message } = await loginWithOTP(email, code)
 
     if (success) {
-      toast.success("Welcome!", {
-        description: `Logged in as ${email}`,
-      });
-
-      replace("/");
+      replace("/")
     } else {
       toast.error(DEFAULT_ERROR_TITLE, {
         description: message,
-      });
+      })
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -96,23 +87,18 @@ const VerificationForm = () => {
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default VerificationForm;
+export default VerificationForm
 
-export const Instruction = () => {
-  const { email } = useAuth();
+export const Description = () => {
+  const { email } = useAuth()
 
-  return (
-    <CardDescription className="whitespace-pre-line">
-      {`Enter the code we've sent to\n${email || "your email"}`}
-    </CardDescription>
-  );
-};
+  return `Enter the code we've sent to\n${email || "your email"}`
+}

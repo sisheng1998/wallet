@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "npx prettier . --write",
     "pages:build": "npx @cloudflare/next-on-pages",
     "preview": "npm run pages:build && wrangler pages dev",
     "deploy": "npm run pages:build && wrangler pages deploy",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.11.3",
     "@cloudflare/workers-types": "^4.20240605.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/better-sqlite3": "^7.6.10",
     "@types/node": "^20.14.2",

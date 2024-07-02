@@ -1,6 +1,8 @@
-import React from "react";
-import { Metadata } from "next";
-import Link from "next/link";
+import React from "react"
+import { Metadata } from "next"
+import Link from "next/link"
+
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,14 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import SignUpForm from "@/components/auth/SignUpForm";
-import GoogleOAuthButton from "@/components/auth/GoogleOAuthButton";
+} from "@/components/ui/card"
+import GoogleOAuthButton from "@/components/auth/GoogleOAuthButton"
+import SignUpForm from "@/components/auth/SignUpForm"
 
 export const metadata: Metadata = {
   title: "Sign Up",
-};
+}
 
 const SignUp = () => (
   <>
@@ -61,6 +62,6 @@ const SignUp = () => (
       </Button>
     </div>
   </>
-);
+)
 
-export default SignUp;
+export default SignUp

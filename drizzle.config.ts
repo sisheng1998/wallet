@@ -1,28 +1,28 @@
-import fs from "fs";
-import path from "path";
-import { defineConfig } from "drizzle-kit";
+import fs from "fs"
+import path from "path"
+import { defineConfig } from "drizzle-kit"
 
 const getLocalD1DB = () => {
   try {
-    const basePath = path.resolve(".wrangler");
+    const basePath = path.resolve(".wrangler")
     const dbFile = fs
       .readdirSync(basePath, { encoding: "utf-8", recursive: true })
-      .find((f) => f.endsWith(".sqlite"));
+      .find((f) => f.endsWith(".sqlite"))
 
     if (!dbFile) {
-      throw new Error(`.sqlite file not found in ${basePath}`);
+      throw new Error(`.sqlite file not found in ${basePath}`)
     }
 
-    const url = path.resolve(basePath, dbFile);
-    return url;
+    const url = path.resolve(basePath, dbFile)
+    return url
   } catch (error) {
     console.log(
       error instanceof Error
         ? `Error: ${error.message}`
-        : "An unknown error occurred",
-    );
+        : "An unknown error occurred"
+    )
   }
-};
+}
 
 export default defineConfig({
   dialect: "sqlite",
@@ -42,4 +42,4 @@ export default defineConfig({
           url: getLocalD1DB(),
         },
       }),
-});
+})

@@ -1,10 +1,11 @@
-import React from "react";
-import { Metadata } from "next";
-import LogoutButton from "@/components/auth/LogoutButton";
+import React from "react"
+import { Metadata } from "next"
+
+import LogoutButton from "@/components/auth/LogoutButton"
 
 export const metadata: Metadata = {
   title: "Dashboard",
-};
+}
 
 const Dashboard = () => {
   return (
@@ -12,7 +13,7 @@ const Dashboard = () => {
       Dashboard
       <LogoutButton />
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

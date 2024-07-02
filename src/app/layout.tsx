@@ -1,10 +1,13 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
-import { cn } from "@/lib/utils";
-import Providers from "./providers";
-import "@/styles/globals.css";
+import type { Metadata } from "next"
+import { Plus_Jakarta_Sans as FontSans } from "next/font/google"
 
-export const runtime = "edge";
+import { cn } from "@/lib/utils"
+
+import "@/styles/globals.css"
+
+import Providers from "@/app/providers"
+
+export const runtime = "edge"
 
 export const metadata: Metadata = {
   title: {
@@ -12,17 +15,17 @@ export const metadata: Metadata = {
     default: "Wallet",
   },
   description: "Finance Made Simple",
-};
+}
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-});
+})
 
 const RootLayout = ({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) => (
   <html lang="en" suppressHydrationWarning>
     <head>
@@ -64,12 +67,12 @@ const RootLayout = ({
     <body
       className={cn(
         "relative flex min-h-screen flex-col overflow-x-hidden overscroll-y-none bg-background font-sans text-foreground antialiased",
-        fontSans.variable,
+        fontSans.variable
       )}
     >
       <Providers>{children}</Providers>
     </body>
   </html>
-);
+)
 
-export default RootLayout;
+export default RootLayout

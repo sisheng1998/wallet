@@ -1,19 +1,21 @@
-"use client";
-import { useTheme } from "next-themes";
-import { Toaster as Sonner } from "sonner";
+"use client"
+
 import {
   CheckCircle,
   Info,
   Loader2,
   OctagonX,
   TriangleAlert,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+} from "lucide-react"
+import { useTheme } from "next-themes"
+import { Toaster as Sonner } from "sonner"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+import { cn } from "@/lib/utils"
+
+type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme();
+  const { theme = "system" } = useTheme()
 
   return (
     <Sonner
@@ -31,29 +33,29 @@ const Toaster = ({ ...props }: ToasterProps) => {
         classNames: {
           info: cn("shadow-[var(--info-border)] dark:shadow-[var(--info-bg)]"),
           success: cn(
-            "shadow-[var(--success-border)] dark:shadow-[var(--success-bg)]",
+            "shadow-[var(--success-border)] dark:shadow-[var(--success-bg)]"
           ),
           warning: cn(
-            "shadow-[var(--warning-border)] dark:shadow-[var(--warning-bg)]",
+            "shadow-[var(--warning-border)] dark:shadow-[var(--warning-bg)]"
           ),
           error: cn(
-            "shadow-[var(--error-border)] dark:shadow-[var(--error-bg)]",
+            "shadow-[var(--error-border)] dark:shadow-[var(--error-bg)]"
           ),
           toast: cn(
-            "group gap-2.5 border-border bg-background text-foreground shadow transition-[transform,opacity,height] duration-300",
+            "group gap-2.5 border-border bg-background text-foreground shadow transition-[transform,opacity,height] duration-300"
           ),
           icon: cn("mx-0 size-5 [&>svg]:size-5"),
           title: cn("text-sm"),
           content: cn("gap-1"),
           description: cn("text-xs opacity-65"),
           closeButton: cn(
-            "left-auto right-0 top-3 !border-transparent !bg-transparent opacity-0 transition-opacity hover:!opacity-100 group-hover:opacity-75 group-data-[type=loading]:hidden",
+            "left-auto right-0 top-3 !border-transparent !bg-transparent opacity-0 transition-opacity hover:!opacity-100 group-hover:opacity-75 group-data-[type=loading]:hidden"
           ),
           actionButton: cn(
-            "!bg-primary font-medium !text-primary-foreground transition hover:!bg-primary/90",
+            "!bg-primary font-medium !text-primary-foreground transition hover:!bg-primary/90"
           ),
           cancelButton: cn(
-            "!bg-muted font-medium !text-muted-foreground transition hover:!bg-muted/90",
+            "!bg-muted font-medium !text-muted-foreground transition hover:!bg-muted/90"
           ),
         },
       }}
@@ -62,7 +64,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       closeButton
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Toaster };
+export { Toaster }

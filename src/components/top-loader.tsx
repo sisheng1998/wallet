@@ -1,15 +1,16 @@
-"use client";
-import React, { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Loader, { NextTopLoaderProps } from "nextjs-toploader";
-import nProgress from "nprogress";
+"use client"
+
+import React, { useEffect } from "react"
+import { usePathname } from "next/navigation"
+import Loader, { NextTopLoaderProps } from "nextjs-toploader"
+import nProgress from "nprogress"
 
 const TopLoader = (props: NextTopLoaderProps) => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   useEffect(() => {
-    nProgress.done();
-  }, [pathname]);
+    nProgress.done()
+  }, [pathname])
 
   return (
     <Loader
@@ -18,7 +19,7 @@ const TopLoader = (props: NextTopLoaderProps) => {
       color="hsl(var(--primary))"
       showSpinner={false}
     />
-  );
-};
+  )
+}
 
-export default TopLoader;
+export default TopLoader

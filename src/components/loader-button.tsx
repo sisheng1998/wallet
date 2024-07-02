@@ -1,11 +1,12 @@
-import React, { ElementType } from "react";
-import { Loader2, LucideIcon } from "lucide-react";
-import { Button, ButtonProps } from "./ui/button";
+import React, { ElementType } from "react"
+import { Loader2, LucideIcon } from "lucide-react"
+
+import { Button, ButtonProps } from "@/components/ui/button"
 
 type LoaderButtonProps = ButtonProps & {
-  icon?: LucideIcon | ElementType;
-  isLoading?: boolean;
-};
+  icon?: LucideIcon | ElementType
+  isLoading?: boolean
+}
 
 export const LoaderButton = React.forwardRef<
   HTMLButtonElement,
@@ -19,6 +20,6 @@ export const LoaderButton = React.forwardRef<
     ) : null}
     {children}
   </Button>
-));
+))
 
-LoaderButton.displayName = "LoaderButton";
+LoaderButton.displayName = "LoaderButton"

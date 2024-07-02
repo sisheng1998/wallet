@@ -1,45 +1,47 @@
-"use client";
-import React, { useState } from "react";
-import { toast } from "sonner";
-import { useRouter } from "@/hooks/useRouter";
-import Google from "@/icons/Google";
+"use client"
+
+import React, { useState } from "react"
+import { toast } from "sonner"
+
 import {
   DEFAULT_ERROR_TITLE,
   ErrorResponse,
   SuccessResponse,
-} from "@/lib/response";
-import { LoaderButton } from "../loader-button";
+} from "@/lib/response"
+import { useRouter } from "@/hooks/useRouter"
+import { LoaderButton } from "@/components/loader-button"
+import Google from "@/icons/Google"
 
 type Result = {
-  url: string;
-};
+  url: string
+}
 
 const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
-  const { push } = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { push } = useRouter()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleClick = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
-    const response = await fetch("/api/oauth/google");
+    const response = await fetch("/api/oauth/google")
 
     if (!response.ok) {
-      const error = (await response.json()) as ErrorResponse;
+      const error = (await response.json()) as ErrorResponse
 
       toast.error(DEFAULT_ERROR_TITLE, {
         description: error.message,
-      });
+      })
 
-      setIsLoading(false);
-      return;
+      setIsLoading(false)
+      return
     }
 
     const {
       data: { url },
-    } = (await response.json()) as SuccessResponse<Result>;
+    } = (await response.json()) as SuccessResponse<Result>
 
-    push(url);
-  };
+    push(url)
+  }
 
   return (
     <LoaderButton
@@ -51,7 +53,7 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
     >
       {action} with Google
     </LoaderButton>
-  );
-};
+  )
+}
 
-export default GoogleOAuthButton;
+export default GoogleOAuthButton

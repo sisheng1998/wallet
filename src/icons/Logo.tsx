@@ -1,5 +1,6 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from "react"
+
+import { cn } from "@/lib/utils"
 
 const Logo = ({ className }: { className?: string }) => (
   <svg
@@ -23,6 +24,6 @@ const Logo = ({ className }: { className?: string }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
-export default Logo;
+export default Logo

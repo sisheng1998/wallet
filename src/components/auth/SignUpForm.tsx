@@ -1,13 +1,15 @@
-"use client";
-import React from "react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { useRouter } from "@/hooks/useRouter";
-import { useAuth } from "@/hooks/useAuth";
-import { signUp } from "@/lib/auth/actions";
-import { DEFAULT_ERROR_TITLE } from "@/lib/response";
+"use client"
+
+import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
+
+import { signUp } from "@/lib/auth/actions"
+import { DEFAULT_ERROR_TITLE } from "@/lib/response"
+import { useAuth } from "@/hooks/useAuth"
+import { useRouter } from "@/hooks/useRouter"
 import {
   Form,
   FormControl,
@@ -15,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { LoaderButton } from "../loader-button";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { LoaderButton } from "@/components/loader-button"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -29,13 +31,13 @@ const formSchema = z.object({
       message: "Email is required",
     })
     .email(),
-});
+})
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>
 
 const SignUpForm = () => {
-  const { push } = useRouter();
-  const { setEmail } = useAuth();
+  const { push } = useRouter()
+  const { setEmail } = useAuth()
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,42 +45,42 @@ const SignUpForm = () => {
       name: "",
       email: "",
     },
-  });
+  })
 
   const onSubmit = async (values: FormValues) => {
-    const email = values.email.trim().toLowerCase();
-    const name = values.name.trim();
+    const email = values.email.trim().toLowerCase()
+    const name = values.name.trim()
 
-    const { success, message } = await signUp(name, email);
+    const { success, message } = await signUp(name, email)
 
     if (success) {
+      form.reset()
+
       toast.success("Account created!", {
         description: "Check your email for the OTP to login",
-      });
+      })
 
-      setEmail(email);
-      push("/verification");
+      setEmail(email)
+      push("/verification")
     } else {
-      const userExists = message === "User already exists";
+      const userExists = message === "User already exists"
 
-      const title = userExists
-        ? "Account already exists."
-        : DEFAULT_ERROR_TITLE;
-      const description = userExists ? "Please login instead" : message;
+      const title = userExists ? "Account already exists." : DEFAULT_ERROR_TITLE
+      const description = userExists ? "Please login instead" : message
 
       toast.error(title, {
         description,
-      });
+      })
     }
-  };
+  }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     form.setValue(name as keyof FormValues, value.trim(), {
       shouldValidate: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form {...form}>
@@ -128,7 +130,7 @@ const SignUpForm = () => {
         </LoaderButton>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

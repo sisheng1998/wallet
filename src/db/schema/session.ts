@@ -1,5 +1,6 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { users } from "./user";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
+
+import { users } from "@/db/schema/user"
 
 export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),
@@ -9,4 +10,4 @@ export const sessions = sqliteTable("sessions", {
       onDelete: "cascade",
     }),
   expiresAt: integer("expires_at").notNull(),
-});
+})

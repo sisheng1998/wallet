@@ -1,14 +1,15 @@
-import React from "react";
-import { redirect } from "next/navigation";
-import { validateRequest } from "@/lib/auth";
-import AuthProvider from "@/contexts/auth";
-import Logo from "@/icons/Logo";
-import CallbackError from "@/components/auth/CallbackError";
+import React from "react"
+import { redirect } from "next/navigation"
+
+import { validateRequest } from "@/lib/auth"
+import CallbackError from "@/components/auth/CallbackError"
+import AuthProvider from "@/contexts/auth"
+import Logo from "@/icons/Logo"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (user) redirect("/");
+  if (user) redirect("/")
 
   return (
     <AuthProvider>
@@ -18,7 +19,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <CallbackError />
       </main>
     </AuthProvider>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

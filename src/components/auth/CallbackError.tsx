@@ -1,32 +1,34 @@
-"use client";
-import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { useRouter } from "@/hooks/useRouter";
-import { DEFAULT_ERROR_TITLE } from "@/lib/response";
+"use client"
+
+import { useEffect } from "react"
+import { usePathname, useSearchParams } from "next/navigation"
+import { toast } from "sonner"
+
+import { DEFAULT_ERROR_TITLE } from "@/lib/response"
+import { useRouter } from "@/hooks/useRouter"
 
 const CallbackError = () => {
-  const { replace } = useRouter();
+  const { replace } = useRouter()
 
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const error = searchParams.get("error") || "";
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const error = searchParams.get("error") || ""
 
   useEffect(() => {
-    if (!error) return;
+    if (!error) return
 
     const timeout = setTimeout(() => {
       toast.error(DEFAULT_ERROR_TITLE, {
         description: error,
-      });
+      })
 
-      replace(pathname);
-    }, 0);
+      replace(pathname)
+    }, 0)
 
-    return () => clearTimeout(timeout);
-  }, [error, replace, pathname]);
+    return () => clearTimeout(timeout)
+  }, [error, replace, pathname])
 
-  return null;
-};
+  return null
+}
 
-export default CallbackError;
+export default CallbackError

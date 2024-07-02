@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
-import { verifyRequestOrigin } from "lucia";
+import { NextRequest, NextResponse } from "next/server"
+import { verifyRequestOrigin } from "lucia"
 
 export const middleware = async (
-  request: NextRequest,
+  request: NextRequest
 ): Promise<NextResponse> => {
   if (request.method === "GET") {
-    return NextResponse.next();
+    return NextResponse.next()
   }
 
-  const originHeader = request.headers.get("Origin");
-  const forwardedHostHeader = request.headers.get("X-Forwarded-Host");
-  const hostHeader = request.headers.get("Host");
+  const originHeader = request.headers.get("Origin")
+  const forwardedHostHeader = request.headers.get("X-Forwarded-Host")
+  const hostHeader = request.headers.get("Host")
 
-  const hostToVerify = forwardedHostHeader || hostHeader;
+  const hostToVerify = forwardedHostHeader || hostHeader
 
   if (
     !originHeader ||
@@ -21,14 +21,14 @@ export const middleware = async (
   ) {
     return new NextResponse(null, {
       status: 403,
-    });
+    })
   }
 
-  return NextResponse.next();
-};
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: [
     "/((?!api|static|.*\\..*|_next|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
-};
+}

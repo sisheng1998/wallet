@@ -2,10 +2,10 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
-	BASE_URL: "http://localhost:3000";
-	EMAIL_SERVER_URL: "https://email-server.sisheng.my";
-	GOOGLE_CLIENT_ID: string;
-	GOOGLE_CLIENT_SECRET: string;
-	API_TOKEN: string;
-	DB: D1Database;
+  BASE_URL: "http://localhost:3000"
+  EMAIL_SERVER_URL: "https://email-server.sisheng.my"
+  GOOGLE_CLIENT_ID: string
+  GOOGLE_CLIENT_SECRET: string
+  API_TOKEN: string
+  DB: D1Database
 }

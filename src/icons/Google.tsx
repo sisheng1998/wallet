@@ -1,5 +1,6 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from "react"
+
+import { cn } from "@/lib/utils"
 
 const Google = ({ className }: { className?: string }) => (
   <svg
@@ -17,6 +18,6 @@ const Google = ({ className }: { className?: string }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
-export default Google;
+export default Google
