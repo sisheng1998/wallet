@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import LoginForm from "@/components/auth/LoginForm";
+import LoginForm, { Description } from "@/components/auth/LoginForm";
 import GoogleOAuthButton from "@/components/auth/GoogleOAuthButton";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ const Login = () => (
       <CardContent>
         <GoogleOAuthButton action="Login" />
 
-        <div className="mb-1 mt-3 flex items-center">
+        <div className="my-3 flex items-center">
           <div className="flex-grow border-t border-muted" />
           <p className="mx-3 text-muted-foreground">or</p>
           <div className="flex-grow border-t border-muted" />
@@ -39,7 +39,7 @@ const Login = () => (
 
       <CardFooter className="justify-center">
         <p className="max-w-[24ch] text-center text-xs leading-normal text-muted-foreground">
-          {`We'll send you a One-Time Password (OTP) to your email to login.`}
+          <Description />
         </p>
       </CardFooter>
     </Card>

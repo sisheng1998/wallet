@@ -7,8 +7,10 @@ import { toast } from "sonner";
 import { Mail } from "lucide-react";
 import { useRouter } from "@/hooks/useRouter";
 import { useAuth } from "@/hooks/useAuth";
-import { sendOTP } from "@/lib/auth/actions";
+import { sendMagicLink, sendOTP } from "@/lib/auth/actions";
 import { DEFAULT_ERROR_TITLE } from "@/lib/response";
+import { LoaderButton } from "@/components/loader-button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Form,
   FormControl,
@@ -16,9 +18,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { LoaderButton } from "../loader-button";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { MODES } from "@/contexts/auth";
 
 const formSchema = z.object({
   email: z
@@ -33,7 +35,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
   const { push } = useRouter();
-  const { setEmail } = useAuth();
+  const { setEmail, mode, setMode } = useAuth();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -44,15 +46,20 @@ const LoginForm = () => {
 
   const onSubmit = async (values: FormValues) => {
     const email = values.email.trim().toLowerCase();
-    const { success, message } = await sendOTP(email);
+    const { success, message } =
+      mode === "OTP" ? await sendOTP(email) : await sendMagicLink(email);
 
     if (success) {
+      form.reset();
+
       toast.success("Email sent!", {
-        description: "Check your email for the OTP to login",
+        description: `Check your email for the ${mode} to login`,
       });
 
-      setEmail(email);
-      push("/verification");
+      if (mode === "OTP") {
+        setEmail(email);
+        push("/verification");
+      }
     } else {
       const userNotFound = message === "User not found";
 
@@ -78,6 +85,21 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <Tabs defaultValue={MODES[0]} className="-mb-1">
+          <TabsList className="w-full">
+            {MODES.map((mode, index) => (
+              <TabsTrigger
+                key={index}
+                className="w-full"
+                value={mode}
+                onClick={() => setMode(mode)}
+              >
+                {mode}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+
         <FormField
           control={form.control}
           name="email"
@@ -102,7 +124,7 @@ const LoginForm = () => {
           isLoading={form.formState.isSubmitting}
           icon={Mail}
         >
-          Send OTP
+          Send {mode}
         </LoaderButton>
       </form>
     </Form>
@@ -110,3 +132,11 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+export const Description = () => {
+  const { mode } = useAuth();
+
+  return mode === "OTP"
+    ? `We'll send you a One-Time Password (OTP) to your email to login.`
+    : `Get a magic link sent to your email that'll sign you in instantly!`;
+};
