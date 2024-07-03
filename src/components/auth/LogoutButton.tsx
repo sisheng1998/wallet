@@ -16,6 +16,9 @@ const LogoutButton = () => {
 
     if (success) {
       push("/login")
+      toast.success("See you soon!", {
+        description: "You have successfully logged out",
+      })
     } else {
       toast.error(DEFAULT_ERROR_TITLE, {
         description: message,
