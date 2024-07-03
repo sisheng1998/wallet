@@ -21,7 +21,10 @@ export const sendMagicLink = async (email: string) => {
       throw new Error("User not found")
     }
 
-    const { url, token, expiresAt } = await generateMagicLink(existingUser.id)
+    const { url, token, expiresAt } = await generateMagicLink(
+      existingUser.id,
+      email
+    )
     await saveMagicLinkToken(existingUser.id, token, expiresAt)
 
     await sendEmail(existingUser.name, email, "Magic Link", url)
@@ -61,7 +64,7 @@ export const loginWithOTP = async (email: string, otp: string) => {
 
     await deleteOTP(userId)
 
-    await login(userId)
+    await login(userId, email)
     return getActionSuccessResponse("Logged in")
   } catch (error) {
     return getActionErrorResponse(error)

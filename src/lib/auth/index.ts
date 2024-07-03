@@ -4,6 +4,7 @@ import { Lucia } from "lucia"
 
 import { DatabaseUserAttributes } from "@/db/schema"
 import adapter from "@/lib/auth/adapter"
+import { LOGGED_IN_EMAIL } from "@/lib/auth/cookie"
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -63,7 +64,7 @@ export const validateRequest = cache(async () => {
   }
 })
 
-export const login = async (userId: string) => {
+export const login = async (userId: string, email: string) => {
   const session = await lucia.createSession(userId, {})
   const sessionCookie = lucia.createSessionCookie(session.id)
 
@@ -72,4 +73,9 @@ export const login = async (userId: string) => {
     sessionCookie.value,
     sessionCookie.attributes
   )
+
+  cookies().set(LOGGED_IN_EMAIL, email, {
+    ...sessionCookie.attributes,
+    httpOnly: false,
+  })
 }

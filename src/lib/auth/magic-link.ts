@@ -13,7 +13,8 @@ const SETTINGS = {
 const getKey = (secret: string) => new TextEncoder().encode(secret)
 
 export const generateMagicLink = async (
-  userId: string
+  userId: string,
+  email: string
 ): Promise<{ url: string; token: string; expiresAt: number }> => {
   const { BASE_URL, API_TOKEN } = env
 
@@ -22,6 +23,7 @@ export const generateMagicLink = async (
 
   const token = await new SignJWT({
     userId,
+    email,
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -35,17 +37,23 @@ export const generateMagicLink = async (
   }
 }
 
-export const getUserId = async (token: string): Promise<string> => {
+export const getUserInfo = async (
+  token: string
+): Promise<{
+  userId: string
+  email: string
+}> => {
   try {
     const { API_TOKEN } = env
 
     const key = getKey(API_TOKEN)
 
-    const {
-      payload: { userId },
-    } = await jwtVerify<{ userId: string }>(token, key)
+    const { payload } = await jwtVerify<{ userId: string; email: string }>(
+      token,
+      key
+    )
 
-    return userId
+    return payload
   } catch (error) {
     throw new Error("Invalid token")
   }

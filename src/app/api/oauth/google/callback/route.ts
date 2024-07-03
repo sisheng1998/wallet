@@ -55,7 +55,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
     // If the user already has an OAuth account, log them in
     if (existingOAuthAccount) {
-      await login(existingOAuthAccount.userId)
+      await login(existingOAuthAccount.userId, email)
       return NextResponse.redirect(BASE_URL)
     }
 
@@ -65,7 +65,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
     if (existingUser) {
       await linkOAuthAccountToUser(existingUser.id, PROVIDER_ID, providerUserId)
 
-      await login(existingUser.id)
+      await login(existingUser.id, existingUser.email)
       return NextResponse.redirect(BASE_URL)
     }
 
@@ -80,7 +80,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       providerUserId
     )
 
-    await login(userId)
+    await login(userId, email)
     return NextResponse.redirect(BASE_URL)
   } catch (error) {
     const url = getUrlWithError(BASE_URL, "/login", error)
