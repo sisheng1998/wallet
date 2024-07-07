@@ -1,11 +1,25 @@
+import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { verifyRequestOrigin } from "lucia"
 
+import env from "@/lib/env"
 import { getErrorResponse } from "@/lib/response"
 
 export const middleware = async (
   request: NextRequest
 ): Promise<NextResponse> => {
+  if (request.nextUrl.pathname.startsWith("/api/cron")) {
+    const { API_TOKEN } = env
+    const token = headers().get("Authorization")?.split("Bearer ")[1]
+
+    if (!token || token !== API_TOKEN) {
+      const response = getErrorResponse("Unauthorized")
+      return NextResponse.json(response, { status: 401 })
+    }
+
+    return NextResponse.next()
+  }
+
   if (request.method === "GET") return NextResponse.next()
 
   const originHeader = request.headers.get("Origin")
@@ -30,5 +44,6 @@ export const middleware = async (
 export const config = {
   matcher: [
     "/((?!api|static|.*\\..*|_next|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/api/cron/:path*",
   ],
 }

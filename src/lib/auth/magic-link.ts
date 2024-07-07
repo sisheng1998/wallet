@@ -1,4 +1,4 @@
-import { and, eq, gt } from "drizzle-orm"
+import { and, eq, gt, lte } from "drizzle-orm"
 import { jwtVerify, SignJWT } from "jose"
 
 import { db } from "@/db"
@@ -97,3 +97,8 @@ export const getExistingMagicLinkToken = async (userId: string) => {
 
 export const deleteMagicLinkToken = async (userId: string) =>
   await db.delete(magicLinks).where(eq(magicLinks.userId, userId))
+
+export const deleteExpiredMagicLinks = async () => {
+  const currentTimestamp = getCurrentUnixTimestamp()
+  await db.delete(magicLinks).where(lte(magicLinks.expiresAt, currentTimestamp))
+}

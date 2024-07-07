@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { eq, lte } from "drizzle-orm"
 
 import { db } from "@/db"
 import { OTPs, users } from "@/db/schema"
@@ -82,3 +82,8 @@ export const getExistingOTP = async (email: string) => {
 
 export const deleteOTP = async (userId: string) =>
   await db.delete(OTPs).where(eq(OTPs.userId, userId))
+
+export const deleteExpiredOTPs = async () => {
+  const currentTimestamp = getCurrentUnixTimestamp()
+  await db.delete(OTPs).where(lte(OTPs.expiresAt, currentTimestamp))
+}
