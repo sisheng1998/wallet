@@ -11,7 +11,7 @@ import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response"
-import { sendEmail, verifyEmail } from "@/email/utils"
+import { sendEmail, verifyEmail } from "@/emails/utils"
 
 export const sendMagicLink = async (email: string) => {
   try {

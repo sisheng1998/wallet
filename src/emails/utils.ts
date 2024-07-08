@@ -1,5 +1,9 @@
 import env from "@/lib/env"
-import { EmailSentInfo, EmailVerificationResult, Response } from "@/email/types"
+import {
+  EmailSentInfo,
+  EmailVerificationResult,
+  Response,
+} from "@/emails/types"
 
 const FROM = {
   name: "Wallet",
