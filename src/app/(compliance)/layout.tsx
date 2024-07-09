@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
     <hr className="bg-border" />
 
     <p className="text-sm text-muted-foreground">
-      Copyright © {new Date().getFullYear()} - Wallet
+      © {new Date().getFullYear()} Wallet, All Rights Reserved
     </p>
   </main>
 )
