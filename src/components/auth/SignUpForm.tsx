@@ -8,7 +8,6 @@ import { z } from "zod"
 
 import { signUp } from "@/lib/auth/actions"
 import { DEFAULT_ERROR_TITLE } from "@/lib/response"
-import { useAuth } from "@/hooks/useAuth"
 import { useRouter } from "@/hooks/useRouter"
 import {
   Form,
@@ -37,7 +36,6 @@ type FormValues = z.infer<typeof formSchema>
 
 const SignUpForm = () => {
   const { push } = useRouter()
-  const { setEmail } = useAuth()
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -57,11 +55,10 @@ const SignUpForm = () => {
       form.reset()
 
       toast.success("Account created!", {
-        description: "Check your email for the OTP to login",
+        description: "Login to access your wallet",
       })
 
-      setEmail(email)
-      push("/verification")
+      push("/login")
     } else {
       const userExists = message === "User already exists"
 

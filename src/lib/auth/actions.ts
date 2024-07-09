@@ -1,6 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
+import { render } from "@react-email/components"
 import { generateIdFromEntropySize } from "lucia"
 
 import { login, lucia, validateRequest } from "@/lib/auth"
@@ -11,6 +12,7 @@ import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response"
+import OTP from "@/emails/templates/OTP"
 import { sendEmail, verifyEmail } from "@/emails/utils"
 
 export const sendMagicLink = async (email: string) => {
@@ -46,7 +48,12 @@ export const sendOTP = async (email: string) => {
     const { code, expiresAt } = generateOTP(6)
     await saveOTP(existingUser.id, code, expiresAt)
 
-    await sendEmail(existingUser.name, email, "OTP", code)
+    await sendEmail(
+      existingUser.name,
+      email,
+      "OTP for Login",
+      render(OTP({ name: existingUser.name, code }))
+    )
 
     return getActionSuccessResponse("Email sent")
   } catch (error) {
@@ -84,10 +91,7 @@ export const signUp = async (name: string, email: string) => {
     const userId = generateIdFromEntropySize(10)
     await createUser(userId, name, email)
 
-    const { code, expiresAt } = generateOTP(6)
-    await saveOTP(userId, code, expiresAt)
-
-    await sendEmail(name, email, "OTP", code)
+    await sendEmail(name, email, "Welcome", "")
 
     return getActionSuccessResponse("Account created")
   } catch (error) {
