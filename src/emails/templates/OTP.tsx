@@ -7,7 +7,7 @@ import Layout from "@/emails/templates/_components/Layout"
 const OTP = ({ name, code }: { name: string; code: string }) => (
   <Layout
     title="Your One-Time Password (OTP)"
-    previewText="Login to Wallet with One-Time Password (OTP)"
+    previewText="Login to Wallet with this One-Time Password (OTP)"
     name={name}
   >
     <Text>Enter the following code to login:</Text>

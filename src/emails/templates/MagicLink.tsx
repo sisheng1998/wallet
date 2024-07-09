@@ -7,7 +7,7 @@ import Layout from "@/emails/templates/_components/Layout"
 const MagicLink = ({ name, url }: { name: string; url: string }) => (
   <Layout
     title="Your Magic Link"
-    previewText="Login to Wallet with Magic Link"
+    previewText="Login to Wallet with this Magic Link"
     name={name}
   >
     <Text>Click the button below to login:</Text>
