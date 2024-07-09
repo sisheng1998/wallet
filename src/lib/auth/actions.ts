@@ -12,6 +12,7 @@ import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response"
+import MagicLink from "@/emails/templates/MagicLink"
 import OTP from "@/emails/templates/OTP"
 import { sendEmail, verifyEmail } from "@/emails/utils"
 
@@ -29,7 +30,12 @@ export const sendMagicLink = async (email: string) => {
     )
     await saveMagicLinkToken(existingUser.id, token, expiresAt)
 
-    await sendEmail(existingUser.name, email, "Magic Link", url)
+    await sendEmail(
+      existingUser.name,
+      email,
+      "Your Magic Link",
+      render(MagicLink({ name: existingUser.name, url }))
+    )
 
     return getActionSuccessResponse("Email sent")
   } catch (error) {
@@ -51,7 +57,7 @@ export const sendOTP = async (email: string) => {
     await sendEmail(
       existingUser.name,
       email,
-      "OTP for Login",
+      "Your One-Time Password (OTP)",
       render(OTP({ name: existingUser.name, code }))
     )
 
