@@ -51,11 +51,7 @@ const ResendOTPButton = () => {
       disabled={timer > 0}
       isLoading={isLoading}
     >
-      {timer > 0
-        ? `Resend OTP in ${timer}s`
-        : isLoading
-          ? "Sending OTP..."
-          : "Resend OTP"}
+      {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
     </LoaderButton>
   )
 }
