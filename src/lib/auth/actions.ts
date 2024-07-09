@@ -8,12 +8,14 @@ import { login, lucia, validateRequest } from "@/lib/auth"
 import { generateMagicLink, saveMagicLinkToken } from "@/lib/auth/magic-link"
 import { deleteOTP, generateOTP, getExistingOTP, saveOTP } from "@/lib/auth/otp"
 import { createUser, getExistingUser } from "@/lib/auth/utils"
+import env from "@/lib/env"
 import {
   getActionErrorResponse,
   getActionSuccessResponse,
 } from "@/lib/response"
 import MagicLink from "@/emails/templates/MagicLink"
 import OTP from "@/emails/templates/OTP"
+import Welcome from "@/emails/templates/Welcome"
 import { sendEmail, verifyEmail } from "@/emails/utils"
 
 export const sendMagicLink = async (email: string) => {
@@ -97,7 +99,17 @@ export const signUp = async (name: string, email: string) => {
     const userId = generateIdFromEntropySize(10)
     await createUser(userId, name, email)
 
-    await sendEmail(name, email, "Welcome", "")
+    await sendEmail(
+      name,
+      email,
+      "Welcome to Wallet!",
+      render(
+        Welcome({
+          name,
+          url: env.BASE_URL,
+        })
+      )
+    )
 
     return getActionSuccessResponse("Account created")
   } catch (error) {

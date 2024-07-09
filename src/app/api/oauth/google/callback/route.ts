@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
+import { render } from "@react-email/components"
 import { generateIdFromEntropySize } from "lucia"
 
 import { login } from "@/lib/auth"
@@ -12,6 +13,8 @@ import {
 } from "@/lib/auth/utils"
 import env from "@/lib/env"
 import { getUrlWithError } from "@/lib/response"
+import Welcome from "@/emails/templates/Welcome"
+import { sendEmail } from "@/emails/utils"
 
 const PROVIDER_ID = "google"
 
@@ -78,6 +81,18 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       email,
       PROVIDER_ID,
       providerUserId
+    )
+
+    await sendEmail(
+      name,
+      email,
+      "Welcome to Wallet!",
+      render(
+        Welcome({
+          name,
+          url: BASE_URL,
+        })
+      )
     )
 
     await login(userId, email)
