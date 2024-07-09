@@ -55,7 +55,7 @@ const SignUpForm = () => {
       form.reset()
 
       toast.success("Account created!", {
-        description: "Login to access your wallet",
+        description: "Thank you for signing up",
       })
 
       push("/login")

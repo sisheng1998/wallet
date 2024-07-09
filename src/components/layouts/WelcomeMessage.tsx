@@ -13,7 +13,7 @@ const WelcomeMessage = () => {
     if (!email) return
 
     const timeout = setTimeout(() => {
-      toast.success("Welcome back!", {
+      toast.success("Welcome!", {
         description: `Logged in as ${email}`,
       })
 
