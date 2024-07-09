@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
-import { renderAsync } from "@react-email/components"
+import { render } from "@react-email/components"
 import { generateIdFromEntropySize } from "lucia"
 
 import { login } from "@/lib/auth"
@@ -83,7 +83,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       providerUserId
     )
 
-    const html = await renderAsync(Welcome({ name, url: BASE_URL }))
+    const html = render(Welcome({ name, url: BASE_URL }))
     await sendEmail(name, email, "Welcome to Wallet!", html)
 
     await login(userId, email)

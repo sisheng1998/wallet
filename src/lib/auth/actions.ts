@@ -1,7 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { renderAsync } from "@react-email/components"
+import { render } from "@react-email/components"
 import { generateIdFromEntropySize } from "lucia"
 
 import { login, lucia, validateRequest } from "@/lib/auth"
@@ -32,7 +32,7 @@ export const sendMagicLink = async (email: string) => {
     )
     await saveMagicLinkToken(existingUser.id, token, expiresAt)
 
-    const html = await renderAsync(MagicLink({ name: existingUser.name, url }))
+    const html = render(MagicLink({ name: existingUser.name, url }))
     await sendEmail(existingUser.name, email, "Your Magic Link", html)
 
     return getActionSuccessResponse("Email sent")
@@ -52,7 +52,7 @@ export const sendOTP = async (email: string) => {
     const { code, expiresAt } = generateOTP(6)
     await saveOTP(existingUser.id, code, expiresAt)
 
-    const html = await renderAsync(OTP({ name: existingUser.name, code }))
+    const html = render(OTP({ name: existingUser.name, code }))
     await sendEmail(
       existingUser.name,
       email,
@@ -96,7 +96,7 @@ export const signUp = async (name: string, email: string) => {
     const userId = generateIdFromEntropySize(10)
     await createUser(userId, name, email)
 
-    const html = await renderAsync(Welcome({ name, url: env.BASE_URL }))
+    const html = render(Welcome({ name, url: env.BASE_URL }))
     await sendEmail(name, email, "Welcome to Wallet!", html)
 
     return getActionSuccessResponse("Account created")
