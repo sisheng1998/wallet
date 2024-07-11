@@ -8,7 +8,7 @@ const Footer = () => (
     </Text>
 
     <Text className="mb-0 mt-3 text-xs">
-      © {new Date().getFullYear()} Wallet, All Rights Reserved
+      Copyright © {new Date().getFullYear()} - Wallet
     </Text>
   </Container>
 )
