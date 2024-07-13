@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { LoaderButton } from "@/components/loader-button"
 import { MODES } from "@/contexts/auth"
+import { api } from "@/trpc/react"
 
 const formSchema = z.object({
   email: z
@@ -36,6 +37,9 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 const LoginForm = () => {
+  const { data } = api.test.hello.useQuery()
+  console.log(data)
+
   const { push } = useRouter()
   const { setEmail, mode, setMode } = useAuth()
 
