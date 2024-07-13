@@ -2,6 +2,7 @@ import React from "react"
 import { redirect } from "next/navigation"
 
 import { validateRequest } from "@/lib/auth"
+import { Paths } from "@/lib/constants"
 import CallbackError from "@/components/auth/CallbackError"
 import AuthProvider from "@/contexts/auth"
 import Logo from "@/icons/Logo"
@@ -9,7 +10,7 @@ import Logo from "@/icons/Logo"
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const { user } = await validateRequest()
 
-  if (user) redirect("/")
+  if (user) redirect(Paths.Home)
 
   return (
     <AuthProvider>

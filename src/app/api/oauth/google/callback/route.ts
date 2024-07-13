@@ -11,6 +11,7 @@ import {
   getExistingUser,
   linkOAuthAccountToUser,
 } from "@/lib/auth/utils"
+import { Paths } from "@/lib/constants"
 import env from "@/lib/env"
 import { getUrlWithError } from "@/lib/response"
 import Welcome from "@/emails/templates/Welcome"
@@ -89,7 +90,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
     await login(userId, email)
     return NextResponse.redirect(BASE_URL)
   } catch (error) {
-    const url = getUrlWithError(BASE_URL, "/login", error)
+    const url = getUrlWithError(BASE_URL, Paths.Login, error)
     return NextResponse.redirect(url)
   }
 }

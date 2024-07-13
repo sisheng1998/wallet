@@ -4,6 +4,7 @@ import React from "react"
 import { toast } from "sonner"
 
 import { logout } from "@/lib/auth/actions"
+import { Paths } from "@/lib/constants"
 import { DEFAULT_ERROR_TITLE } from "@/lib/response"
 import { useRouter } from "@/hooks/useRouter"
 import { Button } from "@/components/ui/button"
@@ -15,7 +16,8 @@ const LogoutButton = () => {
     const { success, message } = await logout()
 
     if (success) {
-      push("/login")
+      push(Paths.Login)
+
       toast.success("See you soon!", {
         description: "You have successfully logged out",
       })

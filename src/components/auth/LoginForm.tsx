@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { sendMagicLink, sendOTP } from "@/lib/auth/actions"
+import { Paths } from "@/lib/constants"
 import { DEFAULT_ERROR_TITLE } from "@/lib/response"
 import { useAuth } from "@/hooks/useAuth"
 import { useRouter } from "@/hooks/useRouter"
@@ -60,7 +61,7 @@ const LoginForm = () => {
 
       if (mode === "OTP") {
         setEmail(email)
-        push("/verification")
+        push(Paths.Verification)
       }
     } else {
       const userNotFound = message === "User not found"

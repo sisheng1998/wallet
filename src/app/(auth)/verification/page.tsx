@@ -2,6 +2,7 @@ import React from "react"
 import { Metadata } from "next"
 import Link from "next/link"
 
+import { Paths } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -40,7 +41,7 @@ const Verification = () => (
     </Card>
 
     <Button variant="link" className="h-auto p-0" asChild>
-      <Link href="/login">Back to Login</Link>
+      <Link href={Paths.Login}>Back to Login</Link>
     </Button>
   </>
 )

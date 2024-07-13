@@ -1,5 +1,7 @@
 import { generateCodeVerifier, generateState, Google } from "arctic"
 
+import { Paths } from "@/lib/constants"
+
 export interface GoogleUser {
   sub: string
   name: string
@@ -13,7 +15,7 @@ export interface GoogleUser {
 export const SETTINGS = {
   STATE_KEY: "google_oauth_state",
   CODE_VERIFIER_KEY: "google_oauth_code_verifier",
-  CALLBACK_URL: "/api/oauth/google/callback",
+  CALLBACK_URL: `${Paths.Google}/callback`,
 }
 
 export const getGoogleOAuthInfo = async (

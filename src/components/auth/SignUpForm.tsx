@@ -7,6 +7,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { signUp } from "@/lib/auth/actions"
+import { Paths } from "@/lib/constants"
 import { DEFAULT_ERROR_TITLE } from "@/lib/response"
 import { useRouter } from "@/hooks/useRouter"
 import {
@@ -58,7 +59,7 @@ const SignUpForm = () => {
         description: "Thank you for signing up",
       })
 
-      push("/login")
+      push(Paths.Login)
     } else {
       const userExists = message === "User already exists"
 

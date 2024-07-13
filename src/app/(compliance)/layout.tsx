@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
+import { Paths } from "@/lib/constants"
 import Logo from "@/icons/Logo"
 
 /* eslint-disable next-on-pages/no-nodejs-runtime */
@@ -8,7 +9,7 @@ export const runtime = "nodejs"
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <main className="container my-12 max-w-prose space-y-12">
-    <Link href="/" className="inline-flex">
+    <Link href={Paths.Home} className="inline-flex">
       <Logo className="h-9 w-9" />
     </Link>
 

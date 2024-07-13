@@ -2,13 +2,14 @@ import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { verifyRequestOrigin } from "lucia"
 
+import { Paths } from "@/lib/constants"
 import env from "@/lib/env"
 import { getErrorResponse } from "@/lib/response"
 
 export const middleware = async (
   request: NextRequest
 ): Promise<NextResponse> => {
-  if (request.nextUrl.pathname.startsWith("/api/cron")) {
+  if (request.nextUrl.pathname.startsWith(Paths.Cron)) {
     const { API_TOKEN } = env
     const token = headers().get("Authorization")?.split("Bearer ")[1]
 

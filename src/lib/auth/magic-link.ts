@@ -4,10 +4,11 @@ import { jwtVerify, SignJWT } from "jose"
 import { db } from "@/db"
 import { magicLinks } from "@/db/schema"
 import { getCurrentUnixTimestamp, VALIDITY_DURATION } from "@/lib/auth/utils"
+import { Paths } from "@/lib/constants"
 import env from "@/lib/env"
 
 const SETTINGS = {
-  CALLBACK_URL: "/api/auth/magic-link/callback",
+  CALLBACK_URL: `${Paths.MagicLink}/callback`,
 }
 
 const getKey = (secret: string) => new TextEncoder().encode(secret)

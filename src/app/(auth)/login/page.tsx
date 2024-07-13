@@ -2,6 +2,7 @@ import React from "react"
 import { Metadata } from "next"
 import Link from "next/link"
 
+import { Paths } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -50,7 +51,7 @@ const Login = () => (
         {`Don't have an account?`}
       </p>
       <Button variant="link" className="h-auto p-0" asChild>
-        <Link href="/sign-up">Sign Up</Link>
+        <Link href={Paths.SignUp}>Sign Up</Link>
       </Button>
     </div>
   </>

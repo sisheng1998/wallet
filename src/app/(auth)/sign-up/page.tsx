@@ -2,6 +2,7 @@ import React from "react"
 import { Metadata } from "next"
 import Link from "next/link"
 
+import { Paths } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -42,11 +43,11 @@ const SignUp = () => (
         <p className="max-w-[24ch] text-center text-xs leading-normal text-muted-foreground">
           By continuing, you agree to our{" "}
           <Button variant="link" className="h-auto p-0 text-xs" asChild>
-            <Link href="/terms-of-service">Terms of Service</Link>
+            <Link href={Paths.TOS}>Terms of Service</Link>
           </Button>{" "}
           and{" "}
           <Button variant="link" className="h-auto p-0 text-xs" asChild>
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href={Paths.PrivacyPolicy}>Privacy Policy</Link>
           </Button>
           .
         </p>
@@ -58,7 +59,7 @@ const SignUp = () => (
         Already have an account?
       </p>
       <Button variant="link" className="h-auto p-0" asChild>
-        <Link href="/login">Login</Link>
+        <Link href={Paths.Login}>Login</Link>
       </Button>
     </div>
   </>

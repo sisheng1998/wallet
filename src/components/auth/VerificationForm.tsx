@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { loginWithOTP } from "@/lib/auth/actions"
+import { Paths } from "@/lib/constants"
 import { DEFAULT_ERROR_TITLE } from "@/lib/response"
 import { useAuth } from "@/hooks/useAuth"
 import { useRouter } from "@/hooks/useRouter"
@@ -33,7 +34,7 @@ const VerificationForm = () => {
 
   useEffect(() => {
     if (!email) {
-      replace("/login")
+      replace(Paths.Login)
     }
   }, [email, replace])
 
@@ -49,7 +50,7 @@ const VerificationForm = () => {
     const { success, message } = await loginWithOTP(email, code)
 
     if (success) {
-      replace("/")
+      replace(Paths.Home)
     } else {
       toast.error(DEFAULT_ERROR_TITLE, {
         description: message,

@@ -2,12 +2,13 @@ import Image, { ImageProps } from "next/image"
 import Link from "next/link"
 import type { MDXComponents } from "mdx/types"
 
+import { Paths } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => ({
   a: ({ href, children }) => (
     <Button variant="link" className="not-prose h-auto p-0 text-base" asChild>
-      <Link href={href || "/"} target="_blank">
+      <Link href={href || Paths.Home} target="_blank">
         {children}
       </Link>
     </Button>

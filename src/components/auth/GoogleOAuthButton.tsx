@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { toast } from "sonner"
 
+import { Paths } from "@/lib/constants"
 import {
   DEFAULT_ERROR_TITLE,
   ErrorResponse,
@@ -23,7 +24,7 @@ const GoogleOAuthButton = ({ action }: { action: "Login" | "Sign Up" }) => {
   const handleClick = async () => {
     setIsLoading(true)
 
-    const response = await fetch("/api/oauth/google")
+    const response = await fetch(Paths.Google)
 
     if (!response.ok) {
       const error = (await response.json()) as ErrorResponse
