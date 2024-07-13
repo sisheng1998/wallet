@@ -83,8 +83,8 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       providerUserId
     )
 
-    const html = render(Welcome({ name, url: BASE_URL }))
-    await sendEmail(name, email, "Welcome to Wallet!", html)
+    // const html = render(Welcome({ name, url: BASE_URL }))
+    await sendEmail(name, email, "Welcome to Wallet!", BASE_URL)
 
     await login(userId, email)
     return NextResponse.redirect(BASE_URL)
