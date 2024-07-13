@@ -3,11 +3,11 @@ import React from "react"
 import { Toaster } from "@/components/ui/sonner"
 import ThemeProvider from "@/components/theme-provider"
 import TopLoader from "@/components/top-loader"
-import { TRPCReactProvider } from "@/trpc/react"
+import { TRPCProvider } from "@/trpc/client"
 import { HydrateClient } from "@/trpc/server"
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
-  <TRPCReactProvider>
+  <TRPCProvider>
     <HydrateClient>
       <ThemeProvider
         attribute="class"
@@ -20,7 +20,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => (
         <Toaster />
       </ThemeProvider>
     </HydrateClient>
-  </TRPCReactProvider>
+  </TRPCProvider>
 )
 
 export default Providers
