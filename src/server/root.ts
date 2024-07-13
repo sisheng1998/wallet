@@ -1,9 +1,6 @@
-import { testRouter } from "@/server/routers/test"
 import { createCallerFactory, createTRPCRouter } from "@/server/trpc"
 
-export const appRouter = createTRPCRouter({
-  test: testRouter,
-})
+export const appRouter = createTRPCRouter({})
 
 export type AppRouter = typeof appRouter
 
