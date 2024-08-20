@@ -1,5 +1,6 @@
 import React from "react"
-import { Container, Text } from "@react-email/components"
+import { Container } from "@react-email/container"
+import { Text } from "@react-email/text"
 
 const Footer = () => (
   <Container className="mt-6 px-8 text-center text-neutral-400">

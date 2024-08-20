@@ -1,15 +1,13 @@
 import React from "react"
-import {
-  Body,
-  Container,
-  Heading,
-  Html,
-  Img,
-  Link,
-  Preview,
-  Tailwind,
-  Text,
-} from "@react-email/components"
+import { Body } from "@react-email/body"
+import { Container } from "@react-email/container"
+import { Heading } from "@react-email/heading"
+import { Html } from "@react-email/html"
+import { Img } from "@react-email/img"
+import { Link } from "@react-email/link"
+import { Preview } from "@react-email/preview"
+import { Tailwind } from "@react-email/tailwind"
+import { Text } from "@react-email/text"
 
 import { BASE_URL } from "@/emails/templates/_components/constants"
 import Footer from "@/emails/templates/_components/Footer"

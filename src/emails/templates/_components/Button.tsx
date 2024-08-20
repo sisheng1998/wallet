@@ -1,5 +1,5 @@
 import React from "react"
-import { Button as ReactEmailButton } from "@react-email/components"
+import { Button as ReactEmailButton } from "@react-email/button"
 
 const Button = ({ href, text }: { href: string; text: string }) => (
   <ReactEmailButton

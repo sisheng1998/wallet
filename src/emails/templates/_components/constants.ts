@@ -1,4 +1,4 @@
-import { FontProps } from "@react-email/components"
+import { FontProps } from "@react-email/font"
 
 export const BASE_URL = (process.env as unknown as CloudflareEnv).BASE_URL || ""
 

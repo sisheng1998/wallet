@@ -1,5 +1,6 @@
 import React from "react"
-import { Font, Head } from "@react-email/components"
+import { Font } from "@react-email/font"
+import { Head } from "@react-email/head"
 
 import {
   FALLBACK_FONT,

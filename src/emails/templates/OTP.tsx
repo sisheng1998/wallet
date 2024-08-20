@@ -1,5 +1,7 @@
 import React from "react"
-import { Heading, Section, Text } from "@react-email/components"
+import { Heading } from "@react-email/heading"
+import { Section } from "@react-email/section"
+import { Text } from "@react-email/text"
 
 import Disclaimer from "@/emails/templates/_components/Disclaimer"
 import Layout from "@/emails/templates/_components/Layout"
