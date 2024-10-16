@@ -50,8 +50,8 @@ const Layout = ({
 
           {children}
 
-          <Text className="mb-0 mt-6">Best,</Text>
-          <Text className="my-0">- Wallet Team</Text>
+          <Text className="!mb-0 mt-6">Best,</Text>
+          <Text className="!my-0">- Wallet Team</Text>
         </Container>
 
         <Footer />
